@@ -1,3 +1,9 @@
 firstL -- YYYY-MM-DD 00:00
 <stuff>
 
+
+
+SKabir-- 2017-05-16 09:41 AM
+Created initial scraping function. It scrapes one players info and creates a list for all 82 (or more if in play offs), individual games.
+
+
