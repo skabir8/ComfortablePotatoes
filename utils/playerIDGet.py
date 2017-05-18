@@ -13,15 +13,17 @@ headers1 = {'user-agent': ('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) '
 r = requests.get("http://stats.nba.com/stats/leagueLeaders?LeagueID=00&PerMode=PerGame&Scope=S&Season=2016-17&SeasonType=Playoffs&StatCategory=PTS", headers = headers1)
 data = r.json()
 
-#seperates data in playerID rows
-playerID=data['resultSet']['rowSet']
-playerDict={}
 
-#makes a dict with ID being key and value as name
-for x in playerID:
-    playerDict[str(x[0])]= x[2]
-
-print playerDict
-
+def makeIDFile(file):
+    #seperates data in playerID rows
+    playerID=data['resultSet']['rowSet']
+    playerDict={}
+    #makes a dict with ID being key and value as name
+    f = open(file, 'w')
+    for x in playerID:
+        f.write(str(x[0]) + "," + str(x[2]) + "\n")
+        #playerDict[str(x[0])]= x[2]
+    
     
 
+makeIDFile("players.txt")
