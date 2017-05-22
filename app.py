@@ -6,7 +6,7 @@ from utils.statsScraper import packagePlayers
 app = Flask(__name__)
 app.secret_key=os.urandom(32)
 
-@app.route("/")
+@app.route("/temp")
 def send():
     if 'userID' in session:
         return redirect(url_for('loggedIn'))
@@ -48,9 +48,9 @@ def dispHome():
 def loggedIn():
     return render_template('loggedIn.html')
 
-@app.route('/search')
+@app.route('/')
 def stats():
-    stats = packagePlayers([201566,2544,201935,202331,201939])
+    stats = packagePlayers([201566,2544,201935])
     return render_template("playerStats.html", list=stats)
 
 if __name__ == "__main__":
