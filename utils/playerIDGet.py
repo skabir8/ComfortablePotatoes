@@ -21,7 +21,9 @@ def makeIDFile(file):
     #makes a dict with ID being key and value as name
     f = open(file, 'w')
     for x in playerID:
-        f.write(str(x[0]) + "," + str(x[2]) + "\n")
+        PID= str(x[0])
+        imageLink='http://stats.nba.com/media/players/230x185/'+PID+'.png'
+        f.write(str(x[0]) + "," + str(x[2]) +","+imageLink+ "\n")
         #playerDict[str(x[0])]= x[2]
     
     

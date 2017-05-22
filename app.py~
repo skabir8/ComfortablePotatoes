@@ -8,10 +8,10 @@ app.secret_key=os.urandom(32)
 @app.route("/")
 def send():
     if 'userID' in session:
-        return redirect(url_for('dispHome'))
+        return redirect(url_for('dispHome'), login="<form action=/logout><input type=\"submit\" value=\"Logout\"></form>")
     if("msg" in request.args.keys()):
         return redirect(url_for('dispLogin')+"?msg="+request.args['msg'])
-    return redirect(url_for('dispHome'))
+    return redirect(url_for('dispHome'), login="<form action=/login><input type=\"submit\" value=\"Logout\"></form>")
 
 @app.route("/login")
 def dispLogin():
@@ -41,10 +41,6 @@ def logout():
 @app.route('/home')
 def dispHome():
     return render_template('home.html')
-
-@app.route('/newLeague')
-def newLeague():
-    return render_template('newLeague.html')
 
 if __name__ == "__main__":
     app.debug = True
