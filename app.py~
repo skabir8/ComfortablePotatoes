@@ -8,10 +8,10 @@ app.secret_key=os.urandom(32)
 @app.route("/")
 def send():
     if 'userID' in session:
-        return redirect(url_for('dispHome'), login="<form action=/logout><input type=\"submit\" value=\"Logout\"></form>")
+        return redirect(url_for('dispHome'))
     if("msg" in request.args.keys()):
         return redirect(url_for('dispLogin')+"?msg="+request.args['msg'])
-    return redirect(url_for('dispHome'), login="<form action=/login><input type=\"submit\" value=\"Logout\"></form>")
+    return redirect(url_for('dispHome'))
 
 @app.route("/login")
 def dispLogin():
