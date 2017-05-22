@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <title>Login</title>
+  </head>
+
+  <body>
+    <center><h3>{{msg}}</h3></center>
+    <center>
+      <form action="/auth" method="POST">
+        Username:
+        <input type="text" class="form-control" name="user">
+	<br>
+	Password:
+        <input type="password" class="form-control" name="pass">
+        <br>
+	<br>
+	<input type="submit" class="btn btn-default" name="login" value="Login">
+	<input type="submit" class="btn btn-default" name="register" value="Register">
+      </form>
+    </center>
+  </body>
+
+</html>
