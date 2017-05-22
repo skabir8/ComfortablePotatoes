@@ -11,4 +11,8 @@ SKabir-- 2017-05-17 02:28 AM
 Created player ID fxn to get ID's from stats.nba.com
 
 
+SKabir-- 2017-05-21 08:10 PM
+Created function to get player images from PID. Created fxn to get last season avgs. Added img links to playertxt file.
+
+
 
