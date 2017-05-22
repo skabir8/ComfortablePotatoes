@@ -7,8 +7,7 @@ headers1 = {'user-agent': ('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) '
                           'Chrome/45.0.2454.101 Safari/537.36'),
                      'referer': 'http://stats.nba.com/scores/'
                     }
-
-
+    
 
 def getCurrentAll(PID):
     PID = str(PID)
@@ -39,12 +38,34 @@ def getPlayerPic(PID):
     PID= str(PID)
     imageLink='http://stats.nba.com/media/players/230x185/'+PID+'.png'
     return imageLink
-    
 
-#print getPrevAvg(201566)
-print getPlayerPic(201566)
+def getPlayerName(PID):
+    f = open("players.txt", "r")
+    for line in f:
+        player = line.split(",")
+        if player[0] == str(PID):
+            return player[1]
 
-    
+def packagePlayer(PID):
+    playerItems = {}
+    playerItems['name'] = getPlayerName(PID)
+    playerItems['image'] = getPlayerPic(PID)
+    avgs = getPrevSeasonAvg(PID)
+    playerItems['pointAvg'] = avgs['PTS']
+    playerItems['fieldGoalPercentage'] = avgs['FG_PCT']
+    playerItems['threePointerPercentage'] = avgs['FG3_PCT']
+    return playerItems
+
+def packagePlayers(listPID):
+    playerStats = []
+    for PID in listPID:
+        playerStats.append(packagePlayer(PID))
+    return playerStats
+
+#print getPrevSeasonAvg(201566)
+#print getPlayerPic(201566)
+#print getPlayerName(201566)
+#print packagePlayers([201566,2544,201935,202331,201939])
 
 
 

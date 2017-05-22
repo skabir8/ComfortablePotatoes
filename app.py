@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import hashlib, os
 from utils.auth import addUser, userLogin
+from utils.statsScraper import packagePlayers
 
 app = Flask(__name__)
 app.secret_key=os.urandom(32)
@@ -47,6 +48,10 @@ def dispHome():
 def loggedIn():
     return render_template('loggedIn.html')
 
+@app.route('/search')
+def stats():
+    stats = packagePlayers([201566,2544,201935,202331,201939])
+    return render_template("playerStats.html", list=stats)
 
 if __name__ == "__main__":
     app.debug = True

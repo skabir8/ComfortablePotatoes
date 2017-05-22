@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <title>
+    Temp Stats
+  </title>
+  <body>
+    <table border="1">
+      {% for i in list %}
+
+      <tr>
+	<td>{{i['name']}}</td>
+	<td><img src={{i['image']}}></td>
+	<td>{{i['pointAvg']}}</td>
+	<td>{{i['fieldGoalPercentage']}}</td>
+	<td>{{i['threePointerPercentage']}}</td>
+      </tr>
+      
+      {% endfor %}
+    </table>
+  </body>
+</html>
