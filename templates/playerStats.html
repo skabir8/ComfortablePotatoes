@@ -13,9 +13,13 @@
 	<td><p>Avg: {{i['pointAvg']}}</p></td>
 	<td><p>FG: {{i['fieldGoalPercentage']}}</p></td>
 	<td><p>3PNT: {{i['threePointerPercentage']}}</p></td>
+	<td><button value={{i['pid']}} class="player">Draft</button></td>
       </tr>
       
       {% endfor %}
     </table>
+    <h3>Players</h3>
+    <p id="team"></p>
+    <script src="../static/playerInfo.js"></script>
   </body>
 </html>

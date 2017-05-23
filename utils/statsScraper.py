@@ -54,6 +54,7 @@ def packagePlayer(PID):
     playerItems['pointAvg'] = avgs['PTS']
     playerItems['fieldGoalPercentage'] = avgs['FG_PCT']
     playerItems['threePointerPercentage'] = avgs['FG3_PCT']
+    playerItems['pid'] = str(PID)
     return playerItems
 
 def packagePlayers(listPID):
