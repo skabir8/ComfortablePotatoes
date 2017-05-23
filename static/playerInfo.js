@@ -1,8 +1,7 @@
 var addPlayer = function(e){
     var name = this.getAttribute("value");
-    var cteam = document.getElementById("team");
-    var nteam = document.getElementById("team");
-    nteam.innerHTML = cteam + name + "<br>" ;
+    var team = document.getElementById("team");
+    team.innerHTML = team.innerHTML + name + "<br>" ;
 }
 
 var playerButtons = document.getElementsByClassName("player");
