@@ -1,36 +1,52 @@
-import hashlib, string
-from pymongo import MongoClient
+import hashlib, sqlite3, string
 
-server = MongoClient("149.89.150.100")
-db = server.ComfortablePotatoes
-u = db.users
 
 def addUser(user, password):
     if (special(user)):
         return "invlaid character in username"
     if (len(password)<8):
         return "password too short"
+    db=sqlite3.connect('data/tables.db')
+    c=db.cursor()
     myHashObj=hashlib.sha1()
     myHashObj.update(password)
-    cursor = u.find()
-    listUsernames = []
-    for dic in cursor:
-        listUsernames.append( dic["username"] )
-    for data in listUsernames:
-        if user == data:
+    q='SELECT * FROM users'
+    c.execute(q)
+    userInfo=c.fetchall()
+    for data in userInfo:
+        if (user in data):
             db.close()
             return "ERROR: username already in use"
-    newUser = {"username":user, "password":myHashObj.hexdigest()}
-    u.insert_one( newUser )
+    q="INSERT INTO users VALUES (NULL, \""+user+'\", \"'+myHashObj.hexdigest()+'\")'
+    print q
+    c.execute(q)
+    db.commit()
+    db.close()
     return "registration succesful, enter user and pass to login"
 
 def userLogin(user, password):
+    db=sqlite3.connect('data/tables.db')
+    c=db.cursor()
     myHashObj=hashlib.sha1()
     myHashObj.update(password)
-    if u.find_one({"$and":[{"username":user}, {"password":myHashObj.hexdigest()}]}) == None:
-        return ['False', 'bad user/pass']
-    return ['True', str(stuff[0][0])]
+    q='SELECT username FROM users'
+    print "hi"
+    c.execute(q)
+    data=c.fetchall()
+    for stuff in data:
+        if(user in stuff):
+            print "bye"
+            q='SELECT password FROM users WHERE username = "'+user+'";'
+            c.execute(q)
+            password=c.fetchall()
+            q='SELECT userID From users WHERE username = "'+user+'";'
+            c.execute(q)
+            stuff=c.fetchall()
+            db.close()
+            if(myHashObj.hexdigest()==password[0][0]):
+                return ['True', str(stuff[0][0])]
+    db.close()
+    return ['False', 'bad user/pass']
 
 def special(user):
-    return any((ord(char)<48 or (ord(char)>57 and ord(char)<65) or (ord(char)>90 and ord(char)<97) or ord(char)>123) for char in user)
-
+return any((ord(char)<48 or (ord(char)>57 and ord(char)<65) or (ord(char)>90 and ord(char)<97) or ord(char)>123) for char in user)
