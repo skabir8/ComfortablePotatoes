@@ -1,29 +1,31 @@
 import hashlib, sqlite3, string
 
 
-def addUser(user, password):
-    if (special(user)):
+def addUser(first, last, username, password):
+    if (special(username)):
         return "invlaid character in username"
     if (len(password)<8):
         return "password too short"
-    db=sqlite3.connect('data/tables.db')
+    db=sqlite3.connect('../data/Comfy.db')
     c=db.cursor()
     myHashObj=hashlib.sha1()
     myHashObj.update(password)
-    q='SELECT * FROM users'
+    q='SELECT username FROM users'
     c.execute(q)
     userInfo=c.fetchall()
+    print userInfo
     for data in userInfo:
-        if (user in data):
+        if (username == data):
             db.close()
             return "ERROR: username already in use"
-    q="INSERT INTO users VALUES (NULL, \""+user+'\", \"'+myHashObj.hexdigest()+'\")'
+    #fix this
+    q="INSERT INTO users VALUES (\""+first+"\",\""+last+"\", \""+username+"\", \""+myHashObj.hexdigest()+"\")"
     print q
     c.execute(q)
     db.commit()
     db.close()
     return "registration succesful, enter user and pass to login"
-
+    
 def userLogin(user, password):
     db=sqlite3.connect('data/tables.db')
     c=db.cursor()
@@ -50,3 +52,5 @@ def userLogin(user, password):
 
 def special(user):
     return any((ord(char)<48 or (ord(char)>57 and ord(char)<65) or (ord(char)>90 and ord(char)<97) or ord(char)>123) for char in user)
+
+addUser("Vincent","Liok","vincentliok","12345678")

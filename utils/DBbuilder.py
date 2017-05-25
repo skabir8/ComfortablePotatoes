@@ -1,11 +1,11 @@
 import sqlite3
 from statsScraper import getPrevSeasonHeaders
 
-db=sqlite3.connect('../data/users.db')
+db=sqlite3.connect('../data/Comfy.db')
 c=db.cursor()
 
 def makeDB():
-    q="CREATE TABLE users( \'first\' text, \'last\' text, \'username\' text, \'password\' text, \'points\' integer, \'players\' integer, \'group\' integer )"
+    q="CREATE TABLE users( \'first\' text, \'last\' text, \'username\' text, \'password\' text, \'points\' integer, \'players\' text, \'group\' integer )"
     c.execute(q)
 
 
@@ -14,7 +14,7 @@ db.commit()
 db.close()
 
 
-db2 = sqlite3.connect('../data/athletes.db')
+db2 = sqlite3.connect('../data/Comfy.db')
 c2 = db2.cursor()
 
 def prevSeasonCommand():
