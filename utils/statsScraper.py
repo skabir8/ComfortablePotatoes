@@ -69,7 +69,7 @@ def packagePlayers(listPID):
         playerStats.append(packagePlayer(PID))
     return playerStats
 
-#print getPrevSeasonAvg(201566)
+#print getPrevSeasonAvg(202681)
 #print getPlayerPic(201566)
 #print getPlayerName(201566)
 #print packagePlayers([201566,2544,201935,202331,201939])
