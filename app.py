@@ -1,11 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import hashlib, os
-from utils.auth import addUser, userLogin
+#from utils.auth import addUser, userLogin
 from utils.statsScraper import packagePlayers
 
 app = Flask(__name__)
 app.secret_key=os.urandom(32)
 
+'''
 @app.route("/temp")
 def send():
     if 'userID' in session:
@@ -13,6 +14,7 @@ def send():
     if("msg" in request.args.keys()):
         return redirect(url_for('dispLogin')+"?msg="+request.args['msg'])
     return redirect(url_for('dispHome'))
+'''
 
 @app.route("/")
 def home():
