@@ -18,7 +18,7 @@ def send():
 
 @app.route("/")
 def home():
-    return render_template("newhome.html")
+    return render_template("home.html")
 
 @app.route("/login")
 def dispLogin():
