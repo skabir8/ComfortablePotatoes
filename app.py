@@ -14,6 +14,10 @@ def send():
         return redirect(url_for('dispLogin')+"?msg="+request.args['msg'])
     return redirect(url_for('dispHome'))
 
+@app.route("/home")
+def home():
+    return render_template("newhome.html")
+
 @app.route("/login")
 def dispLogin():
     if 'userID' in session:
