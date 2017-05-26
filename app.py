@@ -14,7 +14,7 @@ def send():
         return redirect(url_for('dispLogin')+"?msg="+request.args['msg'])
     return redirect(url_for('dispHome'))
 
-@app.route("/home")
+@app.route("/")
 def home():
     return render_template("newhome.html")
 
@@ -43,16 +43,12 @@ def logout():
     session.pop('userID')
     return redirect(url_for('send'))
 
-@app.route('/home')
-def dispHome():
-    return render_template('home.html')
-
 
 @app.route('/loggedIn')
 def loggedIn():
     return render_template('loggedIn.html')
 
-@app.route('/')
+@app.route('/stats')
 def stats():
     stats = packagePlayers([201566,2544,201935])
     return render_template("playerStats.html", list=stats)
