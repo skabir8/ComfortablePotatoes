@@ -1,12 +1,11 @@
 import hashlib, sqlite3, string
 
-
-def addUser(first, last, username, password):
+def addUser(username, password):
     if (special(username)):
         return "invlaid character in username"
     if (len(password)<8):
         return "password too short"
-    db=sqlite3.connect('../data/Comfy.db')
+    db=sqlite3.connect('data/Comfy.db')
     c=db.cursor()
     myHashObj=hashlib.sha1()
     myHashObj.update(password)
@@ -15,42 +14,37 @@ def addUser(first, last, username, password):
     userInfo=c.fetchall()
     print userInfo
     for data in userInfo:
-        if (username == data):
+        if (username == data[0]):
             db.close()
             return "ERROR: username already in use"
-    #fix this
-    q="INSERT INTO users VALUES (\""+first+"\",\""+last+"\", \""+username+"\", \""+myHashObj.hexdigest()+"\")"
-    print q
+    q="INSERT INTO users VALUES (\""+username+"\", \""+myHashObj.hexdigest()+"\",0,NULL,NULL)"
     c.execute(q)
     db.commit()
     db.close()
     return "registration succesful, enter user and pass to login"
     
 def userLogin(user, password):
-    db=sqlite3.connect('data/tables.db')
+    db=sqlite3.connect('data/Comfy.db')
     c=db.cursor()
     myHashObj=hashlib.sha1()
     myHashObj.update(password)
     q='SELECT username FROM users'
-    print "hi"
     c.execute(q)
     data=c.fetchall()
     for stuff in data:
-        if(user in stuff):
-            print "bye"
+        if (user == stuff[0]):
             q='SELECT password FROM users WHERE username = "'+user+'";'
             c.execute(q)
             password=c.fetchall()
-            q='SELECT userID From users WHERE username = "'+user+'";'
+            q='SELECT username From users WHERE username = "'+user+'";'
             c.execute(q)
-            stuff=c.fetchall()
+            userID=c.fetchall()
             db.close()
             if(myHashObj.hexdigest()==password[0][0]):
-                return ['True', str(stuff[0][0])]
+                return ['True', stuff[0]]
     db.close()
     return ['False', 'bad user/pass']
 
 def special(user):
     return any((ord(char)<48 or (ord(char)>57 and ord(char)<65) or (ord(char)>90 and ord(char)<97) or ord(char)>123) for char in user)
 
-addUser("Vincent","Liok","vincentliok","12345678")
