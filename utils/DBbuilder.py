@@ -5,14 +5,13 @@ db=sqlite3.connect('../data/Comfy.db')
 c=db.cursor()
 
 def makeDB():
-    q="CREATE TABLE users( \'first\' text, \'last\' text, \'username\' text, \'password\' text, \'points\' integer, \'players\' text, \'group\' integer )"
+    q="CREATE TABLE users( \'username\' text, \'password\' text, \'points\' integer, \'players\' text, \'group\' integer )"
     c.execute(q)
 
 
 makeDB()
 db.commit()
 db.close()
-
 
 db2 = sqlite3.connect('../data/Comfy.db')
 c2 = db2.cursor()

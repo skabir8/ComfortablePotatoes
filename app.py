@@ -1,22 +1,20 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import hashlib, os
-#from utils.auth import addUser, userLogin
+from utils.auth import addUser, userLogin
 from utils.statsScraper import packagePlayers
 
 app = Flask(__name__)
 app.secret_key=os.urandom(32)
 
-'''
-@app.route("/temp")
+@app.route("/")
 def send():
     if 'userID' in session:
-        return redirect(url_for('loggedIn'))
+        return redirect(url_for('home'))
     if("msg" in request.args.keys()):
         return redirect(url_for('dispLogin')+"?msg="+request.args['msg'])
-    return redirect(url_for('dispHome'))
-'''
+    return redirect(url_for('dispLogin'))
 
-@app.route("/")
+@app.route("/home")
 def home():
     return render_template("home.html")
 
@@ -44,11 +42,6 @@ def auth():
 def logout():
     session.pop('userID')
     return redirect(url_for('send'))
-
-
-@app.route('/loggedIn')
-def loggedIn():
-    return render_template('loggedIn.html')
 
 @app.route('/stats')
 def stats():
