@@ -11,7 +11,7 @@
 	<td>{{i['name']}}</td>
 	<td><img src={{i['image']}}></td>
 	<td><p>Ranking: 0</p></td>
-	<td><p>Stats:</p><button id="display">Display</button></td>
+	<td><p>Stats:</p><button class="displayStats">Display</button></td>
 	<td><button value={{i['pid']}} class="player">Draft</button></td>
       </tr>
       
