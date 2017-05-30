@@ -32,6 +32,7 @@ var compare = function(e){
     var stats = this.parentNode.parentNode.childNodes;
     var name = document.getElementById("name");
     name.innerHTML = stats[1].innerHTML;
+    var n = name.innerHTML;
     var pnt = document.getElementById("pnt");
     pnt.innerHTML = stats[3].innerHTML;
     var p = parseFloat(pnt.innerHTML);
@@ -44,6 +45,7 @@ var compare = function(e){
     var com = (a + p + r)/3;
     var avg = document.getElementById("avg");
     avg.innerHTML = com;
+    var names = document.getElementsByClassName("name");
     var pnts = document.getElementsByClassName("pnt");
     var rebs = document.getElementsByClassName("reb");
     var asts = document.getElementsByClassName("ast");
@@ -51,6 +53,11 @@ var compare = function(e){
 	pnts[i].setAttribute("style", comp(pnts[i], p));
 	rebs[i].setAttribute("style", comp(rebs[i], r));
 	asts[i].setAttribute("style", comp(asts[i], a));
+	if(names[i].innerHTML == n){
+	    pnts[i].setAttribute("style", "color:blue");
+	    rebs[i].setAttribute("style", "color:blue");
+	    asts[i].setAttribute("style", "color:blue");
+	}
     }
 
 }    
