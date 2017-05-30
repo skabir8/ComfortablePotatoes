@@ -2,22 +2,29 @@ import hashlib, sqlite3, string
 
 def addUser(username, password):
     if (special(username)):
-        return "invlaid character in username"
+        return "invalid character in username"
     if (len(password)<8):
         return "password too short"
-    db=sqlite3.connect('data/Comfy.db')
+    db=sqlite3.connect('../data/Comfy.db')
     c=db.cursor()
     myHashObj=hashlib.sha1()
     myHashObj.update(password)
     q='SELECT username FROM users'
     c.execute(q)
     userInfo=c.fetchall()
-    print userInfo
     for data in userInfo:
         if (username == data[0]):
             db.close()
             return "ERROR: username already in use"
-    q="INSERT INTO users VALUES (\""+username+"\", \""+myHashObj.hexdigest()+"\",0,NULL,NULL)"
+    q="SELECT userID FROM users"
+    c.execute(q)
+    listIDs=c.fetchall()
+    print listIDs
+    if not listIDs:
+        newID=0
+    else:
+        newID=listIDs[-1][0] + 1
+    q="INSERT INTO users VALUES ("+str(newID)+",\""+username+"\", \""+myHashObj.hexdigest()+"\",0,NULL,NULL)"
     c.execute(q)
     db.commit()
     db.close()
@@ -48,3 +55,4 @@ def userLogin(user, password):
 def special(user):
     return any((ord(char)<48 or (ord(char)>57 and ord(char)<65) or (ord(char)>90 and ord(char)<97) or ord(char)>123) for char in user)
 
+print addUser("vincentliok3","12345678")
