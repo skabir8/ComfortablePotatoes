@@ -2,7 +2,7 @@ import sqlite3
 from statsScraper import getPrevSeasonHeaders, getPlayerPic, getPlayerName, getPrevSeasonAvg
 from playerIDGet import getPlayerIDs
 
-db = sqlite3.connect('../data/athletes.db')
+db = sqlite3.connect('data/athletes.db')
 c = db.cursor()
 
 def prevSeasonDataCommand(PID):
