@@ -1,18 +1,25 @@
 from flask import Flask, render_template, request, redirect, url_for, session
+import thread
+from flask_socketio import SocketIO, emit, send
 import hashlib, os
+import eventlet
+eventlet.monkey_patch(os=False)
 from utils.auth import addUser, userLogin
 from utils.statsScraper import packagePlayers
 
-app = Flask(__name__)
-app.secret_key=os.urandom(32)
 
-@app.route("/")
-def send():
-    if 'userID' in session:
-        return redirect(url_for('home'))
-    if("msg" in request.args.keys()):
-        return redirect(url_for('dispLogin')+"?msg="+request.args['msg'])
-    return redirect(url_for('dispLogin'))
+app = Flask(__name__)
+app.secret_key = 'as9pdfuhasodifuhasiodfhuasiodfhuasiodfhuasodifuh'
+socketio = SocketIO(app)
+
+@app.route('/')
+def index():
+    return render_template('league.html')
+
+@socketio.on('message')
+def handleMessage(msg):
+	print('Message: ' + msg)
+	send(msg, broadcast=True)
 
 @app.route("/home")
 def home():
@@ -48,6 +55,13 @@ def stats():
     stats = packagePlayers([201566,2544,201935])
     return render_template("playerStats.html", list=stats)
 
+@app.route("/league")
+def makeLeague():
+    return render_template('league.html')
+
+
+
+
 if __name__ == "__main__":
     app.debug = True
-    app.run()
+    socketio.run(app)
