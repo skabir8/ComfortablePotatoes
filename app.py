@@ -12,14 +12,17 @@ app = Flask(__name__)
 app.secret_key = 'as9pdfuhasodifuhasiodfhuasiodfhuasiodfhuasodifuh'
 socketio = SocketIO(app)
 
-@app.route('/')
-def index():
-    return render_template('league.html')
 
-@socketio.on('message')
-def handleMessage(msg):
-	print('Message: ' + msg)
-	send(msg, broadcast=True)
+@app.route("/")
+def logCheck():
+    if 'userID' in session:
+        return redirect(url_for('home'))
+    if("msg" in request.args.keys()):
+        return redirect(url_for('dispLogin')+"?msg="+request.args['msg'])
+    return redirect(url_for('dispLogin'))
+
+
+
 
 @app.route("/home")
 def home():
@@ -43,23 +46,28 @@ def auth():
             msg=info[1]
             session['userID']=request.form['user']
         msg=info[1]
-    return redirect(url_for('send')+"?msg="+msg)
+    return redirect(url_for('logCheck')+"?msg="+msg)
 
 @app.route("/logout")
 def logout():
     session.pop('userID')
-    return redirect(url_for('send'))
+    return redirect(url_for('logCheck'))
 
 @app.route('/stats')
 def stats():
     stats = packagePlayers([201566,2544,201935])
     return render_template("playerStats.html", list=stats)
 
-@app.route("/league")
-def makeLeague():
+
+
+@app.route('/league')
+def index():
     return render_template('league.html')
 
-
+@socketio.on('message')
+def handleMessage(msg):
+	print('Message: ' + msg)
+	send(msg, broadcast=True)
 
 
 if __name__ == "__main__":
