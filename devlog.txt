@@ -19,9 +19,9 @@ VincentL -- 2017-05-21 11:00 PM
 Worked on login system. Not tested and user currently has no way to log out.
 
 
-ShariarK-- -- 2017-05-31 11:00 PM
+ShariarK-- -- 2017-05-31 10:30 AM
 Fixed login
 
 
-
-
+ShariarK-- -- 2017-05-31 06:07 PM
+Added initial socket.io infrastructure 
