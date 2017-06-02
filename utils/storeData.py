@@ -2,7 +2,7 @@ import sqlite3
 from statsScraper import getPrevSeasonHeaders, getPlayerPic, getPlayerName, getPrevSeasonAvg
 from playerIDGet import getPlayerIDs
 
-db = sqlite3.connect('../data/athletes.db')
+db = sqlite3.connect('../data/Comfy.db')
 c = db.cursor()
 
 def prevSeasonDataCommand(PID):
@@ -18,7 +18,6 @@ def prevSeasonDataCommand(PID):
             q += "\'" + val + "\',"
         else:
             q += val + ","
-    print q.rstrip(",") + ")"
     return q.rstrip(",") + ")"
 
 def insertPrevSeasonData(PID):
@@ -29,7 +28,7 @@ def storeAllPlayersPrev():
         insertPrevSeasonData(x)
         print x
 
-def getPrevSeasonDataCommand(PID):
+def getPrevSeasonData(PID):
     q = "SELECT * FROM prevSeason WHERE PID=" + str(PID)
     c.execute(q)
     info = c.fetchone()
@@ -39,12 +38,13 @@ def getPrevSeasonDataCommand(PID):
     i = 0
     for x in info:
         pdic[headers[i]] = x
+        i += 1
     return pdic
 
 #insertPrevSeasonData('201566')
 storeAllPlayersPrev()
 
-#getPrevSeasonDataCommand('201566')
+print getPrevSeasonData('201566')
 
 db.commit()
 db.close()
