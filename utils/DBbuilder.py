@@ -10,11 +10,6 @@ def makeDB():
 
 
 makeDB()
-db.commit()
-db.close()
-
-db2 = sqlite3.connect('../data/Comfy.db')
-c2 = db2.cursor()
 
 def prevSeasonCommand():
     q = "CREATE TABLE prevSeason("
@@ -25,8 +20,8 @@ def prevSeasonCommand():
     return q.rstrip(',')+  ")"
 
 def makeDB2():
-    c2.execute(prevSeasonCommand())
+    c.execute(prevSeasonCommand())
 
 makeDB2()
-db2.commit()
-db2.close()
+db.commit()
+db.close()
