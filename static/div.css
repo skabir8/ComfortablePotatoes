@@ -1,0 +1,8 @@
+.left{
+    width:60%;
+    float:left;
+    height:100%
+}
+.right{
+    margin-left:60%;    
+}
