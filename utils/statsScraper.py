@@ -1,5 +1,5 @@
 import requests
-import urllib2 
+import urllib2
 
 # Headers required to receive NBA response
 headers1 = {'user-agent': ('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) '
@@ -26,18 +26,25 @@ def getPrevSeasonHeaders():
     data = r.json()
     seasonAvgHeader = data['resultSets'][0]['headers']
     return seasonAvgHeader
-    
+
 def getPrevSeasonAvg(PID):
+
     PID = str(PID)
     r = requests.get("http://stats.nba.com/stats/playerdashboardbygeneralsplits?DateFrom=&DateTo=&GameSegment=&LastNGames=0&LeagueID=00&Location=&MeasureType=Base&Month=0&OpponentTeamID=0&Outcome=&PORound=0&PaceAdjust=N&PerMode=PerGame&Period=0&PlayerID="+PID+"&PlusMinus=N&Rank=N&Season=2015-16&SeasonSegment=&SeasonType=Regular+Season&ShotClockRange=&Split=general&VsConference=&VsDivision=", headers = headers1)
     data = r.json()
     seasonAvgHeader = data['resultSets'][0]['headers']
-    seasonAvg = data['resultSets'][0]['rowSet'][0]
+    try:
+        seasonAvg = data['resultSets'][0]['rowSet'][0]
+    except IndexError:
+        seasonAvg=[]
     prevAvg={}
     i=0
     for x in seasonAvgHeader:
-       prevAvg[str(x)]= seasonAvg[i]
-       i+=1    
+        try:
+            prevAvg[str(x)]= seasonAvg[i]
+        except IndexError:
+            prevAvg[str(x)]= 0
+        i+=1
     return prevAvg
 
 def getPlayerPic(PID):
@@ -66,8 +73,9 @@ def packagePlayers(listPID):
         playerStats.append(packagePlayer(PID))
     return playerStats
 
-#print getPrevSeasonAvg(202681)
+#print getPrevSeasonAvg(1627752)
 #print getPlayerPic(201566)
-#print getPlayerName(201566)
+#print getPlayerName(2210)
 #print packagePlayers([201566,2544,201935,202331,201939])
+
 #print packagePlayer(201566)

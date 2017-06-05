@@ -5,7 +5,7 @@ def addUser(username, password):
         return "invalid character in username"
     if (len(password)<8):
         return "password too short"
-    db=sqlite3.connect('data/Comfy.db')
+    db=sqlite3.connect('data/users.db')
     c=db.cursor()
     myHashObj=hashlib.sha1()
     myHashObj.update(password)
@@ -31,7 +31,7 @@ def addUser(username, password):
     return "registration succesful, enter user and pass to login"
     
 def userLogin(user, password):
-    db=sqlite3.connect('data/Comfy.db')
+    db=sqlite3.connect('data/users.db')
     c=db.cursor()
     myHashObj=hashlib.sha1()
     myHashObj.update(password)

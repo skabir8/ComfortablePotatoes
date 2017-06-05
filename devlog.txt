@@ -24,4 +24,7 @@ Fixed login
 
 
 ShariarK-- -- 2017-05-31 06:07 PM
-Added initial socket.io infrastructure 
+Added initial socket.io infrastructure
+
+ShariarK-- -- 2017-06-04 06:07 PM
+Fixed error with scrape
