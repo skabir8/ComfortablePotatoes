@@ -59,6 +59,8 @@ def getPlayerName(PID):
         if player[0] == str(PID):
             return player[1]
 
+print getPlayerName(203473)
+
 def packagePlayer(PID):
     playerItems = {}
     playerItems['name'] = getPlayerName(PID)
