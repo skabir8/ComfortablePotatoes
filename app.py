@@ -18,12 +18,13 @@ def logCheck():
     
 @app.route('/home')
 def home():
+    print session
     if 'rmsg' in session:
         rmsg = session['rmsg']
         session.pop('rmsg')
         return render_template("home.html",rmsg=rmsg)
-    if 'lsmsg' in session:
-        lsmg = session('lsmg')
+    if 'lmsg' in session:
+        lmsg = session['lmsg']
         session.pop('lmsg')
         return render_template("home.html",lmsg=lmsg)
     return render_template("home.html")
@@ -52,7 +53,7 @@ def auth():
 @app.route("/logout")
 def logout():
     session.pop('user')
-    return redirect(url_for('logCheck'))
+    return redirect(url_for('home'))
 
 @app.route('/stats')
 def stats():

@@ -2,123 +2,126 @@
 {% block content %}
 
 <header>
-        <div class="header-content">
-            <div class="header-content-inner">
-                <h1 id="homeHeading"><font color="#ff751a"><br><br><br>JIVS FANTASY BASKETBALL</font></h1>
-                <hr>
-                <p>Draft your own team. Challenge friends and family. Strategize your way to the top of the ranks.</p>
-                <a href="#about" class="btn btn-primary btn-xl page-scroll">Find Out More</a>
+  <div class="header-content">
+    <div class="header-content-inner">
+      <h1 id="homeHeading"><font color="#ff751a"><br><br><br>JIVS FANTASY BASKETBALL</font></h1>
+      <hr>
+      <p>Draft your own team. Challenge friends and family. Strategize your way to the top of the ranks.</p>
+      <a href="#about" class="btn btn-primary btn-xl page-scroll">Find Out More</a>
             </div>
-        </div>
-    </header>
+  </div>
+</header>
 
-    <section class="bg-primary" id="about">
-        <div class="container">
-            <div class="row">
+<section class="bg-primary" id="about">
+  <div class="container">
+    <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <h2 class="section-heading">We've got what you need!</h2>
-                    <hr class="light">
-                    <p class="text-faded">INCLUDE DESCRIPTION OF OUR WEBSITE HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</p>
-                    <a href="#login" class="page-scroll btn btn-default btn-xl sr-button">Get Started!</a>
+                  <h2 class="section-heading">We've got what you need!</h2>
+                  <hr class="light">
+                  <p class="text-faded">INCLUDE DESCRIPTION OF OUR WEBSITE HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</p>
+                  <a href="#login" class="page-scroll btn btn-default btn-xl sr-button">Get Started!</a>
                 </div>
-            </div>
-        </div>
-    </section>
+    </div>
+  </div>
+</section>
 
-    <section id="login">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-lg-offset-2 text-center">
-            <h2 class="section-heading">Login</h2>
-            <hr class="primary">
-            <form action="/auth" method="POST" class="form-signin">
-	      <input name="user" id="username" placeholder="Username" class="form-control">
-	      <input name="pass" id="password" placeholder="Password" class="form-control" type="password"><br>
-	      <center><input name="login" value="Login" class="btn btn-primary btn-xl page-scroll" type="submit"></center>
-	    </form>
-	    {% if lmsg %}
-	    <div class="alert alert-danger">
-	      <center><strong>{{ lmsg[1] }}</strong></center>
-	    </div>
-	    {% endif %}
-          </div>
-        </div>
+{% if 'user' not in session %}
+<section id="login">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 text-center">
+        <h2 class="section-heading">Login</h2>
+        <hr class="primary">
+        <form action="/auth" method="POST" class="form-signin">
+	  <input name="user" id="username" placeholder="Username" class="form-control">
+	  <input name="pass" id="password" placeholder="Password" class="form-control" type="password"><br>
+	  <center><input name="login" value="Login" class="btn btn-primary btn-xl page-scroll" type="submit"></center>
+	</form>
+	{% if lmsg %}
 	<br>
-	<center><a href="#register" class="btn btn-primary btn-xl page-scroll">Don't Have An Account?</a></center>
+	<div class="alert alert-danger">
+	  <center><strong>{{ lmsg[1] }}</strong></center>
+	</div>
+	{% endif %}
       </div>
-    </section>
-    
-    <section class="bg-primary" id="register">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-lg-offset-2 text-center">
-            <h2 class="section-heading">Register</h2>
-            <hr class="primary">
-            <form action="/auth" method="POST" class="form-signin">
-	      <input name="user" id="username" placeholder="Username" class="form-control">
-	      <input name="pass" id="password" placeholder="Password" class="form-control" type="password">
-	      <br>
-	      <center><button style="background-color:#ffffff;color:#F05F40" class="btn btn-primary btn-xl page-scroll" name="register" value="Register" type="submit">Register</button></center>
-	    </form>
-	    <br>
-	    {% if rmsg %}
-	    {% if rmsg[0] %}
-	    <div class="alert alert-success">
-	      <center><strong>{{ rmsg[1] }}</strong></center>
-	    </div>
-	    {% else %}
-	    <div class="alert alert-danger">
-	      <center><strong>{{ rmsg[1] }}</strong></center>
-	    </div>
-	    {% endif %}
-	    {% endif %}
-          </div>
+    </div>
+    <br>
+    <center><a href="#register" class="btn btn-primary btn-xl page-scroll">Don't Have An Account?</a></center>
+  </div>
+</section>
+
+<section class="bg-primary" id="register">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 text-center">
+        <h2 class="section-heading">Register</h2>
+        <hr class="primary">
+        <form action="/auth" method="POST" class="form-signin">
+	  <input name="user" id="username" placeholder="Username" class="form-control">
+	  <input name="pass" id="password" placeholder="Password" class="form-control" type="password">
+	  <br>
+	  <center><button style="background-color:#ffffff;color:#F05F40" class="btn btn-primary btn-xl page-scroll" name="register" value="Register" type="submit">Register</button></center>
+	</form>
+	<br>
+	{% if rmsg %}
+	{% if rmsg[0] %}
+	<div class="alert alert-success">
+	  <center><strong>{{ rmsg[1] }}</strong></center>
+	</div>
+	{% else %}
+	<div class="alert alert-danger">
+	  <center><strong>{{ rmsg[1] }}</strong></center>
+	</div>
+	{% endif %}
+	{% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+
+<section id="team">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <h2 class="section-heading">Our Team</h2>
+        <hr class="primary">
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 col-md-6 text-center">
+        <div class="service-box">
+          <img src="http://lovelace-media.imgix.net/getty/167090471.jpg" width="200" height="133" border="0">
+          <h3>Shariar Kabir</h3>
+          <p class="text-muted"> Project Manager </p>
         </div>
       </div>
-    </section>
-    
-    <section id="team">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Our Team</h2>
-                    <hr class="primary">
-                </div>
-            </div>
+      <div class="col-lg-3 col-md-6 text-center">
+        <div class="service-box">
+          <img src="http://www.grimmemennesker.dk/data/media/1/indian_krusty.jpg" width="200" height="225" border="0">
+          <h3>Jordan Yaqoob</h3>
+          <p class="text-muted"> Valuable Brown Guy</p>
         </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3 col-md-6 text-center">
-                    <div class="service-box">
-                        <img src="http://lovelace-media.imgix.net/getty/167090471.jpg" width="200" height="133" border="0">
-                        <h3>Shariar Kabir</h3>
-                        <p class="text-muted"> Project Manager </p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 text-center">
-                    <div class="service-box">
-                        <img src="http://www.grimmemennesker.dk/data/media/1/indian_krusty.jpg" width="200" height="225" border="0">
-                        <h3>Jordan Yaqoob</h3>
-                        <p class="text-muted"> Valuable Brown Guy</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 text-center">
-                    <div class="service-box">
-                          <img src="https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/14333646_1075117422609827_1918960583102778048_n.jpg?oh=de8380cf43874f48821af9da5c2ad71e&oe=59BDE9CD" width="200" height="200" border="0">
-                        <h3>Issac Kim</h3>
-                        <p class="text-muted">Valuable Member</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 text-center">
-                    <div class="service-box">
-		        <img src="https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/14333646_1075117422609827_1918960583102778048_n.jpg?oh=de8380cf43874f48821af9da5c2ad71e&oe=59BDE9CD" width="200" height="200" border="0">
-			<h3>Vincent Liok</h3>
-                        <p class="text-muted">Also a valuable member</p>
-                    </div>
-                </div>
-            </div>
+      </div>
+      <div class="col-lg-3 col-md-6 text-center">
+        <div class="service-box">
+          <img src="https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/14333646_1075117422609827_1918960583102778048_n.jpg?oh=de8380cf43874f48821af9da5c2ad71e&oe=59BDE9CD" width="200" height="200" border="0">
+          <h3>Issac Kim</h3>
+          <p class="text-muted">Valuable Member</p>
         </div>
-    </section>
+      </div>
+      <div class="col-lg-3 col-md-6 text-center">
+        <div class="service-box">
+	  <img src="https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/14333646_1075117422609827_1918960583102778048_n.jpg?oh=de8380cf43874f48821af9da5c2ad71e&oe=59BDE9CD" width="200" height="200" border="0">
+	  <h3>Vincent Liok</h3>
+          <p class="text-muted">Also a valuable member</p>
+        </div>
+                </div>
+    </div>
+  </div>
+</section>
 {% endblock %}
 
 
