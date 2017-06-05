@@ -21,7 +21,15 @@ def prevSeasonDataCommand(PID):
     return q.rstrip(",") + ")"
 
 def insertPrevSeasonData(PID):
-    c.execute(prevSeasonDataCommand(PID))
+    q = "SELECT * FROM prevSeason WHERE PID=" + str(PID)
+    c.execute(q)
+    r = c.fetchone()
+    if r == None:
+        try:
+            c.execute(prevSeasonDataCommand(PID))
+        except:
+            db.commit()
+            db.close()
 
 def storeAllPlayersPrev():
     for x in getPlayerIDs():
