@@ -43,9 +43,9 @@ def auth():
     else:
         info = userLogin(request.form['user'], request.form['pass'])
         lmsg=info[1]
-        if(info[0]=='True'):
+        if(info[0]):
             session['user']=request.form['user']
-            return redirect("/test")
+            return redirect("/stats")
         else:
             session['lmsg'] = [False, lmsg]
             return redirect("/home#login")
