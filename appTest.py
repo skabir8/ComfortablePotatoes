@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def stats():
-    stats = packagePlayers([201566,2544,201935])
+    stats = packagePlayers([201566])
     return render_template("playerStats.html", list=stats)
 
 if __name__ == "__main__":

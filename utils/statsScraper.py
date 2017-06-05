@@ -57,10 +57,7 @@ def packagePlayer(PID):
     playerItems['name'] = getPlayerName(PID)
     playerItems['image'] = getPlayerPic(PID)
     avgs = getPrevSeasonAvg(PID)
-    playerItems['pointAvg'] = avgs['PTS']
-    playerItems['fieldGoalPercentage'] = avgs['FG_PCT']
-    playerItems['threePointerPercentage'] = avgs['FG3_PCT']
-    playerItems['pid'] = str(PID)
+    playerItems['stats'] = avgs
     return playerItems
 
 def packagePlayers(listPID):
@@ -73,4 +70,4 @@ def packagePlayers(listPID):
 #print getPlayerPic(201566)
 #print getPlayerName(201566)
 #print packagePlayers([201566,2544,201935,202331,201939])
-
+#print packagePlayer(201566)

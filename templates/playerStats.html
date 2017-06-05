@@ -1,22 +1,29 @@
 <!DOCTYPE html>
 <html>
-  <title>
-    Temp Stats
-  </title>
+  <head>
+     <link rel="stylesheet" type="text/css" href="../static/div.css">
+    <title>
+      Temp Stats
+    </title>
+  </head>
   <body>
-    <table border="1">
-      {% for i in list %}
-
-      <tr>
-	<td>{{i['name']}}</td>
-	<td><img src={{i['image']}}></td>
-	<td><p>Ranking: 0</p></td>
-	<td><p>Stats:</p><button id="display">Display</button></td>
-	<td><button value={{i['pid']}} class="player">Draft</button></td>
-      </tr>
-      
-      {% endfor %}
-    </table>
+    <div id="info" class="left">
+      <table border="1" id="statsTable">
+	<tr>
+	  <th>Name</th>
+	  <th>PNT</th>
+	 
+	</tr>
+	{% for i in list %}
+	<tr>
+	  <td class="name">{{i['name']}}</td>
+	  <td class="image"><img src={{i['image']}}></td>
+	  
+	</tr>
+	
+	{% endfor %}
+      </table>
+    </div>
     <h3>Players</h3>
     <p id="team"></p>
     <script src="../static/playerInfo.js"></script>
