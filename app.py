@@ -3,11 +3,10 @@ import thread
 from flask_socketio import SocketIO, emit, send
 import hashlib, os
 import eventlet
-eventlet.monkey_patch(os=False)
 from utils.auth import addUser, userLogin
 from utils.statsScraper import packagePlayers
 
-
+eventlet.monkey_patch(os=False)
 app = Flask(__name__)
 app.secret_key = 'as9pdfuhasodifuhasiodfhuasiodfhuasiodfhuasodifuh'
 socketio = SocketIO(app)
@@ -62,12 +61,21 @@ def stats():
 
 @app.route('/league')
 def index():
-    return render_template('league.html')
+    if 'userID' in session:
+        user= session["userID"]
+        print user
+    else:
+        user = ""
+    return render_template('league.html', user = user)
 
 @socketio.on('message')
 def handleMessage(msg):
 	print('Message: ' + msg)
 	send(msg, broadcast=True)
+
+@socketio.on('swag')
+def handleSwag(lol):
+	print(lol)
 
 
 if __name__ == "__main__":
