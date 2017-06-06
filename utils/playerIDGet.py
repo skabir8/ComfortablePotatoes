@@ -38,4 +38,4 @@ def makeIDFile(file):
 
 #makeIDFile("players.txt")
 
-print(getPlayerIDs())
+#print(getPlayerIDs())

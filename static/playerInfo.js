@@ -18,11 +18,12 @@ for(var i=0; i<statButtons.length; i++){
 
 var comp = function(player1, player2){
     var p1 = parseFloat(player1.innerHTML);
-    if(p1 > player2){
+    var p2 = parseFloat(player2);
+    if(p1 > p2){
 	return "color:green";
-    }if(p1 < player2){
+    }if(p1 < p2){
 	return "color:red";
-    }if(p1 == player2){
+    }if(p1 == p2){
 	return "color:black";
     }
     
@@ -72,6 +73,25 @@ var compare = function(e){
     pfd.innerHTML = "Fouls Drawn: " + stats["PFD"];
     var pf = document.getElementById("pf");
     pf.innerHTML = "Fouls: " + stats["PF"];
+    var names = document.getElementsByClassName("name");
+    var points = document.getElementsByClassName("pts");
+    var rebs = document.getElementsByClassName("reb");
+    var asts = document.getElementsByClassName("ast");
+    var stls = document.getElementsByClassName("stl");
+    var fouls = document.getElementsByClassName("pf");
+    for(var i=0; i < names.length; i++){
+	if(names[i].innerHTML == data['name']){
+	    names[i].setAttribute("style", "color:blue");
+	    points[i].setAttribute("style", "color:blue");
+	    rebs[i].setAttribute("style", "color:blue");
+	    asts[i].setAttribute("style", "color:blue");
+	    stls[i].setAttribute("style", "color:blue");
+	    fouls[i].setAttribute("style", "color:blue");
+	}else{
+	    
+	}
+	
+    }
 }    
 
 
@@ -81,8 +101,8 @@ for(var i=0; i<compareButtons.length; i++){
     b.addEventListener("click", compare);
 }
 
-var prev = document.getElementById("prev");
-var next = document.getElementById("next");
+//var prev = document.getElementById("prev");
+//var next = document.getElementById("next");
 var prevPage = function(e){
     var page = document.getElementById("pageNum");
     var nPage = parseInt(page.innerHTML);
