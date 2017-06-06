@@ -99,10 +99,11 @@ def getBoxScoreUrls():
     day=1
     i=1
     store=getAllGames()
+    file = open("testfile.txt","a")
     for y in store.keys():
         r = requests.get(store['game_'+str(i)])
 
-        print
+        #print
         data = r.text
         soup=BeautifulSoup(data,"html.parser")
         for x in soup.find_all('a'):
@@ -111,16 +112,33 @@ def getBoxScoreUrls():
         dayLog['day_'+str(i)]=retList
         retList=[]
         i+=1
-        print dayLog
-    file = open("testfile.txt","w")
-    file.write(dayLog)
+        #print dayLog.values()[0]
+        for url in dayLog.values()[0]:
+            file.write(url+"\n")
     file.close()
     return dayLog
 
 
+def getBoxScoreStats():
+    #PID = str(PID)
+    file = open("testfile.txt","r")
+    '''
+    url = file.readlines()[0] #change this
+    print url
+    '''
+    url="http://www.basketball-reference.com/boxscores/201703120BOS.html"
+    retList = []
+    r = requests.get(url)
+    data = r.text
+    soup=BeautifulSoup(data,"html.parser")
+    retList=[]
+    for x in soup.find_all('table'):
+        print x
+    file.close()
 
 
-
-print getBoxScoreUrls()
+#print getBoxScoreUrls()
 #print list(set(getBoxScoreUrls()))
 #print getBoxScoreUrls()
+
+getBoxScoreStats()
