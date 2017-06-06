@@ -60,6 +60,17 @@ def stats():
     stats = packagePlayers([201566,2544,201935])
     return render_template("playerStats.html", list=stats)
 
+@app.route('/makeLeague', methods=['POST'])
+def makeLeague():
+    if 'user' in session:
+        print request.form
+    else:
+        return redirect(url_for("/home"))
+    return render_template("newLeague.html")
+
+
+    return render_template("playerStats.html", list=stats)
+
 
 
 @app.route('/league')
