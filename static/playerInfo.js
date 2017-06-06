@@ -17,7 +17,7 @@ for(var i=0; i<statButtons.length; i++){
 }*/
 
 var comp = function(player1, player2){
-    var p1 = parseFloat(player1.innerHTML);
+    var p1 = parseFloat(player1);
     var p2 = parseFloat(player2);
     if(p1 > p2){
 	return "color:green";
@@ -35,6 +35,11 @@ var percent = function(dec){
     var percent = val.toString() + "%";
     return percent
     
+}
+
+var combine = function(val1, val2){
+    var total = parseFloat(val1) + parseFloat(val2);
+    return total;
 }
 
 var compare = function(e){
@@ -88,7 +93,14 @@ var compare = function(e){
 	    stls[i].setAttribute("style", "color:blue");
 	    fouls[i].setAttribute("style", "color:blue");
 	}else{
-	    
+	    names[i].setAttribute("style", "color:black");
+	    points[i].setAttribute("style", comp(points[i].innerHTML, stats['PTS']));
+	    rebs[i].setAttribute("style", comp(rebs[i].innerHTML, combine(stats['OREB'], stats['DREB'])));
+	    asts[i].setAttribute("style", comp(asts[i].innerHTML, stats['AST']));
+	    stls[i].setAttribute("style", comp(stls[i].innerHTML, stats['STL']));
+	   
+	    fouls[i].setAttribute("style", comp(stats['PF'], fouls[i].innerHTML));
+	   
 	}
 	
     }
