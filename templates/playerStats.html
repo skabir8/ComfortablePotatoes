@@ -10,22 +10,37 @@
     <div id="info" class="left">
       <table border="1" id="statsTable">
 	<tr>
-	  <th>Name</th>
-	  <th>PNT</th>
-	 
+	  <th>Player</th>
+	  <th>Points</th>
+	  <th>Rebounds</th>
+	  <th>Assists</th>
+	  <th>Steals</th>
+	  <th>Fouls</th>
+	  <th>Win:Loss</th>
+	  <th>Full Stats</th>
 	</tr>
 	{% for i in list %}
 	<tr>
-	  <td class="name">{{i['name']}}</td>
-	  <td class="image"><img src={{i['image']}}></td>
-	  
+	  <td class="name">{{i['name']}}<br><img src={{i['image']}}></td>
+	  <td class="pts">{{i['stats']['PTS']}}</td>
+	  <td class="reb">{{i['stats']['REB']}}</td>
+	  <td class="ast">{{i['stats']['AST']}}</td>
+	  <td class="stl">{{i['stats']['STL']}}</td>
+	  <td class="pf">{{i['stats']['PF']}}</td>
+	  <td class="wl">{{i['stats']['W']}}:{{i['stats']['L']}}</td>
+	  <td><button class="compare">check</button></td>
 	</tr>
-	
 	{% endfor %}
       </table>
     </div>
-    <h3>Players</h3>
-    <p id="team"></p>
+    <div id="extraStats" class="right">
+      <p id="name"></p>
+      <p id="pnt"></p>
+      <p id="reb"></p>
+      <p id="ast"></p>
+      <p id="avg"></p>
+    </div>
+    
     <script src="../static/playerInfo.js"></script>
   </body>
 </html>

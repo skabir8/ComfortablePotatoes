@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 
-from utils.statsScraper import packagePlayers
+from utils.storeData import packagePlayers
 
 app = Flask(__name__)
 
@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def stats():
-    stats = packagePlayers([201566])
+    stats = packagePlayers([201566,2544,201939])
     return render_template("playerStats.html", list=stats)
 
 if __name__ == "__main__":
