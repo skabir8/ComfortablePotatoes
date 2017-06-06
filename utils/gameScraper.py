@@ -120,21 +120,14 @@ def getBoxScoreUrls():
 
 
 def getBoxScoreStats():
-    #PID = str(PID)
-    file = open("testfile.txt","r")
-    '''
-    url = file.readlines()[0] #change this
-    print url
-    '''
     url="http://www.basketball-reference.com/boxscores/201703120BOS.html"
     retList = []
     r = requests.get(url)
     data = r.text
     soup=BeautifulSoup(data,"html.parser")
-    retList=[]
-    for x in soup.find_all('table'):
+    for x in soup.find_all('tr'):
         print x
-    file.close()
+
 
 
 #print getBoxScoreUrls()

@@ -1,9 +1,55 @@
 <!DOCTYPE html>
+
+
 <html>
-  <head>
+<head>
+<title>Chat Room</title>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+$(document).ready(function() {
+	namespace = '/draft';
+	var socket = io.connect('http://' + document.domain + ':' + location.port+ namespace);
+		socket.on('connect', function() {
+			socket.send('{{user}} has connected!');
+		});
+		socket.on('message', function(msg) {
+			$("#messages").append('<li>'+msg+'</li>');
+			console.log('Received message');
+		});
+		$('#sendbutton').on('click', function() {
+			socket.send($('#myMessage').val());
+			$('#myMessage').val('');
+		});
+		$('#sendbutton1').on('click', function() {
+      socket.emit('swag',{data: document.getElementById("sendbutton1").value});
+		});
+    $('#sendbutton2').on('click', function() {
+      socket.emit('swag',{data: document.getElementById("sendbutton2").value});
+    });
+    $('#sendbutton3').on('click', function() {
+      socket.emit('swag',{data: document.getElementById("sendbutton3").value});
+    });
+    $('#sendbutton4').on('click', function() {
+      socket.emit('swag',{data: document.getElementById("sendbutton4").value});
+    });
+    $('#sendbutton5').on('click', function() {
+      socket.emit('swag',{data: document.getElementById("sendbutton5").value});
 
-  </head>
-  <body>
+    });
 
-  </body>
+	});
+</script>
+<ul id="messages"></ul>
+<input type="text" id="myMessage">
+<center><button style="background-color:#ffffff;color:#F05F40" id="sendbutton1" class="btn btn-primary btn-xl page-scroll" name="makeLeague" value="2544" type="submit">LeBron James</button></center>
+<center><button style="background-color:#ffffff;color:#F05F40" id="sendbutton2" class="btn btn-primary btn-xl page-scroll" name="makeLeague" value="201566" type="submit">Russell Westbrook</button></center>
+<center><button style="background-color:#ffffff;color:#F05F40" id="sendbutton3" class="btn btn-primary btn-xl page-scroll" name="makeLeague" value="201939" type="submit">Stephen Curry/button></center>
+<center><button style="background-color:#ffffff;color:#F05F40" id="sendbutton4" class="btn btn-primary btn-xl page-scroll" name="makeLeague" value="201935" type="submit">James Harden</button></center>
+<center><button style="background-color:#ffffff;color:#F05F40" id="sendbutton5" class="btn btn-primary btn-xl page-scroll" name="makeLeague" value="202331" type="submit">Paul George</button></center>
+
+
+</body>
 </html>
