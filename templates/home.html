@@ -121,9 +121,23 @@
           <p class="text-muted">Also a valuable member</p>
         </div>
                 </div>
+
+                <div class="col-lg-3 col-md-6 text-center">
+                  <div class="service-box">
+          	    <form action="/makeLeague" method="POST" class="form-makeLeague">
+              <input name="user1" id="username1" placeholder="Username" class="form-control">
+              <input name="user2" id="username2" placeholder="Username" class="form-control">
+              <input name="user3" id="username3" placeholder="Username" class="form-control">
+              <input name="user4" id="username4" placeholder="Username" class="form-control">
+              <input name="user5" id="username5" placeholder="Username" class="form-control">
+
+
+              <br>
+              <center><button style="background-color:#ffffff;color:#F05F40" class="btn btn-primary btn-xl page-scroll" name="makeLeague" value="makeLeague" type="submit">Make League</button></center>
+              </form>
+                  </div>
+                          </div>
     </div>
   </div>
 </section>
 {% endblock %}
-
-
