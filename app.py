@@ -15,7 +15,7 @@ socketio = SocketIO(app)
 @app.route("/")
 def logCheck():
     return redirect(url_for('home'))
-    
+
 @app.route('/home')
 def home():
     print session
@@ -71,6 +71,23 @@ def index():
         user = ""
     return render_template('league.html', user = user)
 
+@socketio.on('swag', namespace='/league')
+def handleSwag(lol):
+	print(lol)
+
+@app.route('/league1')
+def index1():
+    if 'user' in session:
+        user= session["user"]
+        print user
+    else:
+        user = ""
+    return render_template('league1.html', user = user)
+
+@socketio.on('swag', namespace='/league1')
+def handleSwag(lol):
+	print(str(lol)+'loooooooooooooooo')
+
 @app.route('/test')
 def test():
     return "test"
@@ -80,9 +97,7 @@ def handleMessage(msg):
 	print('Message: ' + msg)
 	send(msg, broadcast=True)
 
-@socketio.on('swag')
-def handleSwag(lol):
-	print(lol)
+
 
 
 if __name__ == "__main__":
