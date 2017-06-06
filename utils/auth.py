@@ -35,22 +35,20 @@ def userLogin(user, password):
     c=db.cursor()
     myHashObj=hashlib.sha1()
     myHashObj.update(password)
-    q='SELECT username FROM users'
+    q='SELECT * FROM users WHERE username="' + user + '";'
     c.execute(q)
-    data=c.fetchall()
-    for stuff in data:
-        if (user == stuff[0]):
-            q='SELECT password FROM users WHERE username = "'+user+'";'
-            c.execute(q)
-            password=c.fetchall()
-            q='SELECT username From users WHERE username = "'+user+'";'
-            c.execute(q)
-            userID=c.fetchall()
-            db.close()
-            if(myHashObj.hexdigest()==password[0][0]):
-                return ['True', stuff[0]]
-    db.close()
-    return ['False', 'bad user/pass']
+    result=c.fetchone()
+    if result == None:
+        db.close()
+        return [False, 'Username does not exist!']
+    passw = result[2]
+    if(myHashObj.hexdigest()==passw):
+       db.close()
+       return [True, 'Successfully logged in!']
+    else:
+       db.close()
+       return [False, 'Incorrect Password']
 
 def special(user):
     return any((ord(char)<48 or (ord(char)>57 and ord(char)<65) or (ord(char)>90 and ord(char)<97) or ord(char)>123) for char in user)
+

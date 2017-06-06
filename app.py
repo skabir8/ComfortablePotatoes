@@ -14,43 +14,46 @@ socketio = SocketIO(app)
 
 @app.route("/")
 def logCheck():
-    if 'userID' in session:
-        return redirect(url_for('home'))
-    if("msg" in request.args.keys()):
-        return redirect(url_for('dispLogin')+"?msg="+request.args['msg'])
-    return redirect(url_for('dispLogin'))
-
-
-
-
-@app.route("/home")
+    return redirect(url_for('home'))
+    
+@app.route('/home')
 def home():
+    print session
+    if 'rmsg' in session:
+        rmsg = session['rmsg']
+        session.pop('rmsg')
+        return render_template("home.html",rmsg=rmsg)
+    if 'lmsg' in session:
+        lmsg = session['lmsg']
+        session.pop('lmsg')
+        return render_template("home.html",lmsg=lmsg)
     return render_template("home.html")
 
-@app.route("/login")
-def dispLogin():
-    if 'userID' in session:
-        return render_template('alreadyLogged.html', msg=session['userID'])
-    if 'msg' in request.args.keys():
-        return render_template("login.html", msg=request.args['msg'])
-    return render_template("login.html", msg ="")
 
 @app.route("/auth", methods=['POST'])
 def auth():
     if 'register' in request.form.keys():
-        msg=addUser(request.form['user'], request.form['pass'])
+        rmsg=addUser(request.form['user'], request.form['pass'])
+        if 'succ' not in rmsg:
+            session['rmsg'] = [False, rmsg]
+        else:
+            session['rmsg'] = [True, rmsg]
+        print rmsg
+        return redirect("/home#register")
     else:
         info = userLogin(request.form['user'], request.form['pass'])
-        if(info[0]=='True'):
-            msg=info[1]
-            session['userID']=request.form['user']
-        msg=info[1]
-    return redirect(url_for('logCheck')+"?msg="+msg)
+        lmsg=info[1]
+        if(info[0]):
+            session['user']=request.form['user']
+            return redirect("/stats")
+        else:
+            session['lmsg'] = [False, lmsg]
+            return redirect("/home#login")
 
 @app.route("/logout")
 def logout():
-    session.pop('userID')
-    return redirect(url_for('logCheck'))
+    session.pop('user')
+    return redirect(url_for('home'))
 
 @app.route('/stats')
 def stats():
@@ -61,12 +64,16 @@ def stats():
 
 @app.route('/league')
 def index():
-    if 'userID' in session:
-        user= session["userID"]
+    if 'user' in session:
+        user= session["user"]
         print user
     else:
         user = ""
     return render_template('league.html', user = user)
+
+@app.route('/test')
+def test():
+    return "test"
 
 @socketio.on('message')
 def handleMessage(msg):
