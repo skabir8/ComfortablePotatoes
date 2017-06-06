@@ -98,11 +98,11 @@ def packagePlayers(listPID):
         playerStats.append(packagePlayer(PID))
     return playerStats
 
-print getPrevSeasonAvg('201566')
+#print getPrevSeasonAvg('201566')
 #insertPrevSeasonData('201566')
 #storeAllPlayersPrev()
-print ""
-print getPrevSeasonData('201566')
+#print ""
+#print getPrevSeasonData('201566')
 #insertPrevSeasonData('2210')
 #print(packagePlayers([201566,2544]))
 db.commit()
