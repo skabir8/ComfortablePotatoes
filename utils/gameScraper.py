@@ -1,7 +1,9 @@
 import requests
 import urllib2
 from bs4 import BeautifulSoup
+from lxml import etree
 
+headersList=['MP','FG','FGA','FG%','3P','3PA','3P','FT','FTA','FT','ORB','DRB','TRB','AST','STL','BLK','TOV','PF','PTS','+/-']
 
 headers1 = {'user-agent': ('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) '
                           'AppleWebKit/537.36 (KHTML, like Gecko) '
@@ -119,14 +121,57 @@ def getBoxScoreUrls():
     return dayLog
 
 
-def getBoxScoreStats():
-    url="http://www.basketball-reference.com/boxscores/201703120BOS.html"
+def getBoxScoreStats(boxUrl):
+    url=boxUrl
     retList = []
     r = requests.get(url)
     data = r.text
-    soup=BeautifulSoup(data,"html.parser")
-    for x in soup.find_all('tr'):
-        print x
+    soup = BeautifulSoup(r.text, 'lxml')
+    allData = soup.find_all('tr')
+    #y = allData[1]
+    #colH = y.find_all('th')
+    #for x in colH:
+    #    print x.string
+    #
+    #print y
+    #print y
+    endL=[]
+    store=[]
+    for elements in allData:
+
+        name = elements.find_all('th')
+        if name[0].string == None:
+            name =  "0"
+        else:
+            name = name[0].string.strip()
+
+        col = elements.find_all('td')
+        i=0
+        hold=[]
+        gameScores={}
+        hold.append(name)
+        gameScores[name]={}
+        for column in col:
+            if (name != 'Team Totals'):
+                if col[i].string== None:
+                    column_dat = '0'
+                else:
+                    column_dat = col[i].string.strip()
+                    print name, headersList[i], column_dat
+                gameScores[name][headersList[i]]=column_dat
+                i+=1
+        store.append(name)
+        hold.append(gameScores)
+        endL.append(hold)
+
+
+            #print column_dat
+    print store
+    return endL[2:]
+
+
+
+
 
 
 
@@ -134,4 +179,4 @@ def getBoxScoreStats():
 #print list(set(getBoxScoreUrls()))
 #print getBoxScoreUrls()
 
-getBoxScoreStats()
+#getBoxScoreStats('http://www.basketball-reference.com/boxscores/201703130CHO.html')

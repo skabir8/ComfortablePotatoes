@@ -46,3 +46,6 @@ Scraped all box scores and days
 
 IssacK -- 2017-06-05 9:30 PM
 Start moving from fake values to database info
+
+ShariarK-- -- 2017-06-05 06:07 PM
+made fxn to manually scrape all the data from a single NBA day
