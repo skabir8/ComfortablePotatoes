@@ -107,7 +107,8 @@ print ""
 databasestuff = getPrevSeasonData('201566')
 for key in real:
     print str(real[key]) + ":" + str(databasestuff[key])
-    
+
+print databasestuff
 #print ""
 #print getPrevSeasonData('201566')
 #insertPrevSeasonData('2210')

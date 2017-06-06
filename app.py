@@ -47,10 +47,14 @@ def auth():
         lmsg=info[1]
         if(info[0]):
             session['user']=request.form['user']
-            return redirect("/stats")
+            return redirect("/profile")
         else:
             session['lmsg'] = [False, lmsg]
             return redirect("/home#login")
+
+@app.route("/profile")
+def profile():
+    return render_template("profile.html")
 
 @app.route("/logout")
 def logout():
