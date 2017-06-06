@@ -61,9 +61,22 @@ var compare = function(e){
     }
 
 }    
-   
+
+var getInfo = function(e){
+    var pid = this.getAttribute("id");
+    $.ajax({
+	url: "../utils/statsScraper",
+	type: "POST",
+	data: {param: pid},
+	datatype: "dictionary"
+    }).done(function(result) {
+        alert(result['name']);
+    }).fail(function() {
+        console.log("oops");
+    });;
+}
 var compareButtons = document.getElementsByClassName("compare");
 for(var i=0; i<compareButtons.length; i++){
     var b = compareButtons[i];
-    b.addEventListener("click", compare);
+    b.addEventListener("click", getInfo);
 }

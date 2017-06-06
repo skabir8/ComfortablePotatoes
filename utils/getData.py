@@ -3,7 +3,7 @@ from statsScraper import getPrevSeasonHeaders, getPlayerPic, getPlayerName, getP
 from playerIDGet import getPlayerIDs
 
 def getPrevSeasonData(PID):
-    db = sqlite3.connect('data/athletes.db')
+    db = sqlite3.connect('../data/athletes.db')
     c = db.cursor()
     q = "SELECT * FROM prevSeason WHERE PID=" + str(PID)
     c.execute(q)
@@ -33,6 +33,7 @@ def getPlayerName(PID):
 
 def packagePlayer(PID):
     playerItems = {}
+    playerItems['pid'] = str(PID)
     playerItems['name'] = getPlayerName(PID)
     playerItems['image'] = getPlayerPic(PID)
     avgs = getPrevSeasonData(str(PID))
@@ -46,3 +47,12 @@ def packagePlayers(listPID):
     return playerStats
 
 
+print(packagePlayer(201566))
+
+
+def main():
+    ...
+    return x 
+if __name__ == "__main__":
+    x=main()
+    return x;

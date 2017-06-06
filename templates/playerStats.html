@@ -28,7 +28,7 @@
 	  <td class="stl">{{i['stats']['STL']}}</td>
 	  <td class="pf">{{i['stats']['PF']}}</td>
 	  <td class="wl">{{i['stats']['W']}}:{{i['stats']['L']}}</td>
-	  <td><button class="compare">check</button></td>
+	  <td><button id={{i['pid']}} class="compare">check</button></td>
 	</tr>
 	{% endfor %}
       </table>
@@ -40,7 +40,7 @@
       <p id="ast"></p>
       <p id="avg"></p>
     </div>
-    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="../static/playerInfo.js"></script>
   </body>
 </html>
