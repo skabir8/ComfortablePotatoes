@@ -10,6 +10,8 @@ Created initial scraping function. It scrapes one players info and creates a lis
 ShariarK-- 2017-05-17 02:28 AM
 Created player ID fxn to get ID's from stats.nba.com
 
+IssacK-- 2017-05-18 2:30 PM
+Read through player info to create csv for player name and pid
 
 ShariarK-- 2017-05-21 08:10 PM
 Created function to get player images from PID. Created fxn to get last season avgs. Added img links to playertxt file.
@@ -18,6 +20,16 @@ Created function to get player images from PID. Created fxn to get last season a
 VincentL -- 2017-05-21 11:00 PM
 Worked on login system. Not tested and user currently has no way to log out.
 
+IssacK -- 2017-05-21 11:23 PM
+Begin working stats page, make basic template
+
+IssacK -- 2017-05-23 6:14 PM
+Try to begin player picking
+Did not get much done
+
+IssacK -- 2017-5-30 8:30 PM
+Finish stats page, as of now working with dumby values until db is up.
+Have comparison section to compare different players
 
 ShariarK-- -- 2017-05-31 10:30 AM
 Fixed login
@@ -31,3 +43,6 @@ Fixed error with scrape
 
 ShariarK-- -- 2017-06-05 06:07 PM
 Scraped all box scores and days
+
+IssacK -- 2017-06-05 9:30 PM
+Start moving from fake values to database info
