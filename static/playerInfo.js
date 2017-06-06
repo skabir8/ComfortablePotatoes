@@ -63,7 +63,7 @@ var compare = function(e){
     var oreb = document.getElementById("oreb");
     oreb.innerHTML = "Offensive Rebounds: " + stats["OREB"];
     var blk = document.getElementById("blk");
-    blk.innerHTML = "Blcoks: " + stats["BLK"];
+    blk.innerHTML = "Blocks: " + stats["BLK"];
     var stl = document.getElementById("stl");
     stl.innerHTML = "Steals: " + stats["STL"];
     var dreb = document.getElementById("dreb");
@@ -80,3 +80,22 @@ for(var i=0; i<compareButtons.length; i++){
     var b = compareButtons[i];
     b.addEventListener("click", compare);
 }
+
+var prev = document.getElementById("prev");
+var next = document.getElementById("next");
+var prevPage = function(e){
+    var page = document.getElementById("pageNum");
+    var nPage = parseInt(page.innerHTML);
+    if(nPage > 1){
+	page.innerHTML = nPage - 1;
+    }
+}
+var nextPage = function(e){
+    var page = document.getElementById("pageNum");
+    var nPage = parseInt(page.innerHTML);
+    if(nPage < 8){
+	page.innerHTML = nPage + 1;
+    }
+}
+prev.addEventListener("click", prevPage);
+next.addEventListener("click", nextPage);

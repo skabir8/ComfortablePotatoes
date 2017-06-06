@@ -1,3 +1,6 @@
+.inline{
+    display:inline;
+}
 .left{
     width:60%;
     float:left;
