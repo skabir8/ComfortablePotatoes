@@ -3,6 +3,8 @@ import thread
 from flask_socketio import SocketIO, emit, send
 import hashlib, os
 import eventlet
+from utils.makeLeague import newLeague
+from utils.playerPicker import addAthlete
 from utils.auth import addUser, userLogin
 from utils.statsScraper import packagePlayers
 
@@ -64,14 +66,27 @@ def stats():
 def makeLeague():
     if 'user' in session:
         print request.form
+        newLeague(request.form['user1'],request.form['user2'],request.form['user3'],request.form['user4'],request.form['user5'])
     else:
         return redirect(url_for("/home"))
-    return render_template("newLeague.html")
+    return redirect(url_for("/home"))
 
+@app.route('/draft/<leagueID>/')
+def draft(leagueID):
+    i=leagueID
+    if 'user' in session:
+        print request.form
+    else:
+        return redirect(url_for("/home"))
+    return render_template('newLeague.html')
 
-    return render_template("playerStats.html", list=stats)
-
-
+@socketio.on('swag', namespace='/draft')
+def handleSwag(lol):
+	print(lol)
+@socketio.on('message', namespace='/draft')
+def handleMessage(msg):
+	print('Message: ' + msg)
+	send(msg, broadcast=True)
 
 @app.route('/league')
 def index():
@@ -85,6 +100,14 @@ def index():
 @socketio.on('swag', namespace='/league')
 def handleSwag(lol):
 	print(lol)
+	send(lol, broadcast=True)
+
+@socketio.on('message', namespace='/league')
+def handleMessage(msg):
+	print('Message: ' + msg)
+	send(msg, broadcast=True)
+
+
 
 @app.route('/league1')
 def index1():
@@ -99,11 +122,8 @@ def index1():
 def handleSwag(lol):
 	print(str(lol)+'loooooooooooooooo')
 
-@app.route('/test')
-def test():
-    return "test"
 
-@socketio.on('message')
+@socketio.on('message', namespace='/league1')
 def handleMessage(msg):
 	print('Message: ' + msg)
 	send(msg, broadcast=True)
