@@ -1,15 +1,17 @@
 import sqlite3
 from statsScraper import getPrevSeasonHeaders, getPlayerPic, getPlayerName, getPrevSeasonAvg
 from playerIDGet import getPlayerIDs
+import json
 
 def getPrevSeasonData(PID):
-    db = sqlite3.connect('../data/athletes.db')
+    db = sqlite3.connect('data/athletes.db')
     c = db.cursor()
     q = "SELECT * FROM prevSeason WHERE PID=" + str(PID)
     c.execute(q)
     info = c.fetchone()
-    headers = ['PID', 'name' , 'img']
-    headers = headers + getPrevSeasonHeaders()
+    q = "SELECT * FROM prevSeason WHERE PID=\'PID\'"
+    c.execute(q)
+    headers = c.fetchone()
     pdic = {}
     i = 0
     for x in info:
@@ -38,6 +40,7 @@ def packagePlayer(PID):
     playerItems['image'] = getPlayerPic(PID)
     avgs = getPrevSeasonData(str(PID))
     playerItems['stats'] = avgs
+    playerItems['str'] = json.dumps(playerItems)
     return playerItems
 
 def packagePlayers(listPID):
@@ -47,12 +50,4 @@ def packagePlayers(listPID):
     return playerStats
 
 
-print(packagePlayer(201566))
 
-
-def main():
-    ...
-    return x 
-if __name__ == "__main__":
-    x=main()
-    return x;

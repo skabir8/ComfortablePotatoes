@@ -16,7 +16,7 @@
 	  <th>Assists</th>
 	  <th>Steals</th>
 	  <th>Fouls</th>
-	  <th>Win:Loss</th>
+	  <th>Win-Loss</th>
 	  <th>Full Stats</th>
 	</tr>
 	{% for i in list %}
@@ -27,18 +27,34 @@
 	  <td class="ast">{{i['stats']['AST']}}</td>
 	  <td class="stl">{{i['stats']['STL']}}</td>
 	  <td class="pf">{{i['stats']['PF']}}</td>
-	  <td class="wl">{{i['stats']['W']}}:{{i['stats']['L']}}</td>
-	  <td><button id={{i['pid']}} class="compare">check</button></td>
+	  <td class="wl">{{i['stats']['W']}}-{{i['stats']['L']}}</td>
+	  <td><button class="compare">check<p class="hidden">{{i['str']}}</p></button></td>
 	</tr>
 	{% endfor %}
       </table>
     </div>
     <div id="extraStats" class="right">
-      <p id="name"></p>
-      <p id="pnt"></p>
-      <p id="reb"></p>
-      <p id="ast"></p>
-      <p id="avg"></p>
+      <h2 id="name">Player:</h2>
+      <div id="image"></div>
+      <h3>Playtime</h3>
+      <p id="win-loss">Win-Loss:</p>
+      <p id="gp">Games Played:</p>
+      <p id="min">Minutes:</p>
+      <h3>Offensive</h3>
+      <p id="pts">Points:</p>
+      <p id="fg">Field Goals:</p>
+      <p id="3p">3 Pointers:</p>
+      <p id="ft">Free Throws:</p>
+      <p id="ast">Assists:</p>
+      <p id="pfd">Fouls Drawn:</p>
+      <p id="oreb">Offensive Rebounds:</p>
+      <h3>Defensive</h3>
+      <p id="blk">Blocks:</p>
+      <p id="stl">Steals:</p>
+      <p id="pf">Fouls:</p>
+      <p id="dreb">Defensive Rebounds:</p>
+      <br><br>
+      <p>If value is in form n0(n1), n0 is shots made and n1 is shots attempted.</p>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="../static/playerInfo.js"></script>
