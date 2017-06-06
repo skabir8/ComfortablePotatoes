@@ -11,7 +11,11 @@ def prevSeasonDataCommand(PID):
     q += "\'" + getPlayerName(PID) + "\',"
     q += "\'" + getPlayerPic(PID) + "\',"
     datadic = getPrevSeasonAvg(PID)
-    #print datadic
+    headers = []
+    for key in datadic:
+        headers.append(str(key))
+    print headers
+    print datadic
     for x in datadic:
         val = str(datadic[x])
         if val.isalpha():
@@ -19,6 +23,8 @@ def prevSeasonDataCommand(PID):
         else:
             q += val + ","
     return q.rstrip(",") + ")"
+
+#print prevSeasonDataCommand('201566')
 
 def insertPrevSeasonData(PID):
     q = "SELECT * FROM prevSeason WHERE PID=" + str(PID)
@@ -38,12 +44,27 @@ def storeAllPlayersPrev():
             print "Broke at" + str(x)
             break
 
+def storeKeys():
+    datadic = getPrevSeasonAvg('201566')
+    headers = []
+    q = "INSERT INTO prevSeason VALUES('PID', 'name','img',"
+    for key in datadic:
+        q += "'" + key + "'" + ","
+    q = q.rstrip(",") + ")"
+    c.execute(q)
+
+def getKeys():
+    q = "SELECT * FROM prevSeason WHERE PID=\'PID\'"
+    c.execute(q)
+    r = c.fetchone()
+    return r
+
 def getPrevSeasonData(PID):
     q = "SELECT * FROM prevSeason WHERE PID=" + str(PID)
     c.execute(q)
     info = c.fetchone()
-    headers = ['PID', 'name' , 'img']
-    headers = headers + getPrevSeasonHeaders()
+    #print info
+    headers = getKeys()
     pdic = {}
     i = 0
     for x in info:
@@ -76,10 +97,12 @@ def packagePlayers(listPID):
     for PID in listPID:
         playerStats.append(packagePlayer(PID))
     return playerStats
+
+print getPrevSeasonAvg('201566')
 #insertPrevSeasonData('201566')
 #storeAllPlayersPrev()
-
-#print getPrevSeasonData('201566')
+print ""
+print getPrevSeasonData('201566')
 #insertPrevSeasonData('2210')
 #print(packagePlayers([201566,2544]))
 db.commit()
