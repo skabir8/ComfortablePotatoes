@@ -28,3 +28,6 @@ Added initial socket.io infrastructure
 
 ShariarK-- -- 2017-06-04 06:07 PM
 Fixed error with scrape
+
+ShariarK-- -- 2017-06-05 06:07 PM
+Scraped all box scores and days
