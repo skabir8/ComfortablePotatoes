@@ -3,7 +3,7 @@ from statsScraper import getPrevSeasonHeaders, getPlayerPic, getPlayerName, getP
 from playerIDGet import getPlayerIDs
 
 def getPrevSeasonData(PID):
-    db = sqlite3.connect('../data/athletes.db')
+    db = sqlite3.connect('data/athletes.db')
     c = db.cursor()
     q = "SELECT * FROM prevSeason WHERE PID=" + str(PID)
     c.execute(q)
@@ -45,4 +45,4 @@ def packagePlayers(listPID):
         playerStats.append(packagePlayer(PID))
     return playerStats
 
-print(packagePlayers([201566,2544]))
+
