@@ -23,8 +23,6 @@ def newLeague(user1, user2, user3, user4, user5):
                 newListUsers1.append(user[0])
             newListUsers1.sort()
             if newListUsers1 == compareUsers:
-                print newListUsers1
-                print compareUsers
                 return "League already exists!"
         lastNum=tableNamesRefined[-1]
     newNum=lastNum+1
