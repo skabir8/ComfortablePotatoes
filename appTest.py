@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 
 from utils.getData import packagePlayers
+from utils.playerIDGet import getPlayerIDs
 
 app = Flask(__name__)
 
@@ -8,7 +9,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def stats():
-    stats = packagePlayers([201566,2544,201939])
+    listPlayers = getPlayerIDs()
+    stats = packagePlayers(listPlayers)
     return render_template("playerStats.html", list=stats)
 
 if __name__ == "__main__":
