@@ -67,7 +67,6 @@ def getPrevSeasonData(PID):
     headers = getKeys()
     pdic = {}
     i = 0
-    print(info)
     for x in info:
         pdic[headers[i]] = x
         i += 1
@@ -102,13 +101,15 @@ def packagePlayers(listPID):
 #print getPrevSeasonAvg('201566')
 #insertPrevSeasonData('201566')
 #storeAllPlayersPrev()
-<<<<<<< HEAD
+real = getPrevSeasonAvg('201566')
+print ""
 
-print getPrevSeasonData('201566')
-=======
+databasestuff = getPrevSeasonData('201566')
+for key in real:
+    print str(real[key]) + ":" + str(databasestuff[key])
+    
 #print ""
 #print getPrevSeasonData('201566')
->>>>>>> 749a62e6173afaacb204d113b60ce68b977cec1f
 #insertPrevSeasonData('2210')
 #print(packagePlayers([201566,2544]))
 db.commit()

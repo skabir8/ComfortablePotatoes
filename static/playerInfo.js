@@ -28,55 +28,55 @@ var comp = function(player1, player2){
     
 }
 
-var compare = function(e){
-    var stats = this.parentNode.parentNode.childNodes;
-    var name = document.getElementById("name");
-    name.innerHTML = stats[1].innerHTML;
-    var n = name.innerHTML;
-    var pnt = document.getElementById("pnt");
-    pnt.innerHTML = stats[3].innerHTML;
-    var p = parseFloat(pnt.innerHTML);
-    var reb = document.getElementById("reb");
-    reb.innerHTML = stats[5].innerHTML;
-    var r = parseFloat(reb.innerHTML);
-    var ast = document.getElementById("ast");
-    ast.innerHTML = stats[7].innerHTML;
-    var a = parseFloat(ast.innerHTML);
-    var com = (a + p + r)/3;
-    var avg = document.getElementById("avg");
-    avg.innerHTML = com;
-    var names = document.getElementsByClassName("name");
-    var pnts = document.getElementsByClassName("pnt");
-    var rebs = document.getElementsByClassName("reb");
-    var asts = document.getElementsByClassName("ast");
-    for(var i=0; i < pnts.length; i++){
-	pnts[i].setAttribute("style", comp(pnts[i], p));
-	rebs[i].setAttribute("style", comp(rebs[i], r));
-	asts[i].setAttribute("style", comp(asts[i], a));
-	if(names[i].innerHTML == n){
-	    pnts[i].setAttribute("style", "color:blue");
-	    rebs[i].setAttribute("style", "color:blue");
-	    asts[i].setAttribute("style", "color:blue");
-	}
-    }
+var percent = function(dec){
+    var val = parseFloat(dec);
+    val = Math.round(val * 1000)/10;
+    var percent = val.toString() + "%";
+    return percent
+    
+}
 
+var compare = function(e){
+    var stats = this.childNodes[1].innerHTML;
+    var data = JSON.parse(stats);
+    stats = data["stats"];
+    var name = document.getElementById("name");
+    name.innerHTML = data['name']
+    var img = document.getElementById("image");
+    img.innerHTML = "<img src=" + data['image'] + ">";
+    var wl = document.getElementById("win-loss");
+    wl.innerHTML = "Win-Loss: " + stats["W"] + "-" + stats["L"];
+    var gp = document.getElementById("gp");
+    gp.innerHTML = "Games Played: " + stats["GP"];
+    var min = document.getElementById("min");
+    min.innerHTML = "Minutes: " + stats["MIN"];
+    var pts = document.getElementById("pts");
+    pts.innerHTML = "Points " + stats["PTS"];
+    var fg = document.getElementById("fg");
+    fg.innerHTML = "Field Goals: " + stats["FGM"] + "(" + stats["FGA"] + ") - " + percent(stats["FG_PCT"]);
+    var three = document.getElementById("3p");
+    three.innerHTML = "3 Pointers: " + stats["FG3M"] + "(" + stats["FG3A"] + ") - " + percent(stats["FG3_PCT"]);
+    var ft = document.getElementById("ft");
+    ft.innerHTML = "Free Throws: " + stats["FTM"] + "(" + stats["FTA"] + ") - " + percent(stats["FT_PCT"]);
+    var ast = document.getElementById("ast");
+    ast.innerHTML = "Assists: " + stats["AST"];
+    var oreb = document.getElementById("oreb");
+    oreb.innerHTML = "Offensive Rebounds: " + stats["OREB"];
+    var blk = document.getElementById("blk");
+    blk.innerHTML = "Blcoks: " + stats["BLK"];
+    var stl = document.getElementById("stl");
+    stl.innerHTML = "Steals: " + stats["STL"];
+    var dreb = document.getElementById("dreb");
+    dreb.innerHTML = "Defensive Rebounds: " + stats["DREB"];
+    var pfd = document.getElementById("pfd");
+    pfd.innerHTML = "Fouls Drawn: " + stats["PFD"];
+    var pf = document.getElementById("pf");
+    pf.innerHTML = "Fouls: " + stats["PF"];
 }    
 
-var getInfo = function(e){
-    var pid = this.getAttribute("id");
-    $.ajax({
-	url: "../utils/statsScraper",
-	type: "POST",
-	data: {param: pid},
-	datatype: "dictionary"
-    }).done(function(result) {
-        alert(result['name']);
-    }).fail(function() {
-        console.log("oops");
-    });;
-}
+
 var compareButtons = document.getElementsByClassName("compare");
 for(var i=0; i<compareButtons.length; i++){
     var b = compareButtons[i];
-    b.addEventListener("click", getInfo);
+    b.addEventListener("click", compare);
 }
