@@ -6,8 +6,7 @@ import eventlet
 from utils.makeLeague import newLeague, joinLeague
 from utils.playerPicker import addAthlete
 from utils.auth import addUser, userLogin
-from utils.statsScraper import packagePlayers
-
+from utils.getData import packageAllPlayers
 eventlet.monkey_patch(os=False)
 app = Flask(__name__)
 app.secret_key = 'as9pdfuhasodifuhasiodfhuasiodfhuasiodfhuasodifuh'
@@ -102,7 +101,7 @@ def logout():
 
 @app.route('/stats')
 def stats():
-    stats = packagePlayers([201566,2544,201935])
+    stats = packageAllPlayers()
     return render_template("playerStats.html", list=stats)
 
 @app.route('/draft/<leagueID>/')
@@ -114,53 +113,6 @@ def draft(leagueID):
         return redirect(url_for("/home"))
     return render_template('newLeague.html')
 
-@socketio.on('swag', namespace='/draft')
-def handleSwag(lol):
-	print(lol)
-@socketio.on('message', namespace='/draft')
-def handleMessage(msg):
-	print('Message: ' + msg)
-	send(msg, broadcast=True)
-
-@app.route('/league')
-def index():
-    if 'user' in session:
-        user= session["user"]
-        print user
-    else:
-        user = ""
-    return render_template('league.html', user = user)
-
-@socketio.on('swag', namespace='/league')
-def handleSwag(lol):
-	print(lol)
-	send(lol, broadcast=True)
-
-@socketio.on('message', namespace='/league')
-def handleMessage(msg):
-	print('Message: ' + msg)
-	send(msg, broadcast=True)
-
-
-
-@app.route('/league1')
-def index1():
-    if 'user' in session:
-        user= session["user"]
-        print user
-    else:
-        user = ""
-    return render_template('league1.html', user = user)
-
-@socketio.on('swag', namespace='/league1')
-def handleSwag(lol):
-	print(str(lol)+'loooooooooooooooo')
-
-
-@socketio.on('message', namespace='/league1')
-def handleMessage(msg):
-	print('Message: ' + msg)
-	send(msg, broadcast=True)
 
 
 

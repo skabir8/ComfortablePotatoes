@@ -29,7 +29,7 @@ def getStats(name):
         retDict[str(day[0])]=tempDict
     return retDict
 
-print getStats("Kristaps Porzingis")
+#print getStats("Kristaps Porzingis")
 
 #storeStats(5, gameScraper.getDayData(5))
 

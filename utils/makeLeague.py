@@ -36,5 +36,3 @@ def joinLeague(name, user):
     db.commit()
     db.close()
     return [True, "User Successfully Added to League"]
-    
- 

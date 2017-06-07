@@ -1,5 +1,5 @@
 import requests
-import urllib2 
+import urllib2
 
 # Headers required to receive NBA response
 headers1 = {'user-agent': ('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) '
@@ -10,8 +10,8 @@ headers1 = {'user-agent': ('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) '
 
 
 
-r = requests.get("http://stats.nba.com/stats/leagueLeaders?LeagueID=00&PerMode=PerGame&Scope=S&Season=2016-17&SeasonType=Playoffs&StatCategory=PTS", headers = headers1)
-data = r.json()
+#r = requests.get("http://stats.nba.com/stats/leagueLeaders?LeagueID=00&PerMode=PerGame&Scope=S&Season=2016-17&SeasonType=Playoffs&StatCategory=PTS", headers = headers1)
+#data = r.json()
 
 def getPlayerIDs():
     ids = []
@@ -33,8 +33,8 @@ def makeIDFile(file):
         f.write(str(x[0]) + "," + str(x[2]) +","+imageLink+ "," +str(i) + "\n")
         i = i + 1
         #playerDict[str(x[0])]= x[2]
-    
-    
+
+
 
 #makeIDFile("players.txt")
 
