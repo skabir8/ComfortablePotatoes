@@ -99,10 +99,15 @@ def logout():
     session.pop('user')
     return redirect(url_for('home'))
 
-@app.route('/stats')
-def stats():
-    stats = packageAllPlayers()
-    return render_template("playerStats.html", list=stats)
+@app.route('/draft/<leagueID>')
+def stats(leagueID):
+    #listOfPlayersinLeague=getPlayersInLeague(leagueID)
+    if 'user' in session and 'user' in listOfPlayersinLeague:
+        LID=leagueID
+        stats = packageAllPlayers()
+        return render_template("playerStats.html", list=stats, LID=leagueID)
+    else:
+        redirect(url_for('home'))
 
 @app.route('/draft/<leagueID>/')
 def draft(leagueID):
