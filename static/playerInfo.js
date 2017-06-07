@@ -129,5 +129,5 @@ var nextPage = function(e){
 	page.innerHTML = nPage + 1;
     }
 }
-prev.addEventListener("click", prevPage);
-next.addEventListener("click", nextPage);
+//prev.addEventListener("click", prevPage);
+//next.addEventListener("click", nextPage);

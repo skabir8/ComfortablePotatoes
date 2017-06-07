@@ -10,13 +10,17 @@ headers1 = {'user-agent': ('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) '
 
 
 
-#r = requests.get("http://stats.nba.com/stats/leagueLeaders?LeagueID=00&PerMode=PerGame&Scope=S&Season=2016-17&SeasonType=Playoffs&StatCategory=PTS", headers = headers1)
-#data = r.json()
+r = requests.get("http://stats.nba.com/stats/leagueLeaders?LeagueID=00&PerMode=PerGame&Scope=S&Season=2016-17&SeasonType=Playoffs&StatCategory=PTS", headers = headers1)
+data = r.json()
 
 def getPlayerIDs():
     ids = []
     for x in data['resultSet']['rowSet']:
         ids.append(x[0])
+    #f = open("players.txt", 'r')
+    #for line in f.read():
+    #   info = line.split(',')
+    #  ids.append(info[0])
     return ids
 
 

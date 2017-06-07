@@ -1,10 +1,11 @@
 from flask import Flask, render_template, request, redirect, url_for, session
-import thread
+
 import hashlib, os
 from utils.makeLeague import newLeague, joinLeague, getLeagues
 from utils.playerPicker import addAthlete
 from utils.auth import addUser, userLogin
 from utils.getData import packageAllPlayers
+from utils.playerIDGet import getPlayerIDs
 app = Flask(__name__)
 app.secret_key=os.urandom(32)
 
@@ -102,7 +103,7 @@ def logout():
 @app.route('/draft/<leagueID>')
 def stats(leagueID):
     #listOfPlayersinLeague=getPlayersInLeague(leagueID)
-    if 'user' in session and 'user' in listOfPlayersinLeague:
+    if 'user' in session:
         LID=leagueID
         stats = packageAllPlayers()
         return render_template("playerStats.html", list=stats, LID=leagueID)
@@ -118,8 +119,10 @@ def draft(leagueID):
         return redirect(url_for("/home"))
     return render_template('newLeague.html')
 
-
-
+@app.route('/players/')
+def players():
+    stats = packageAllPlayers()
+    return render_template("playerStats2.html", list=stats)
 
 
 if __name__ == "__main__":

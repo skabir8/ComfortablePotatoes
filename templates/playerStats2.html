@@ -29,15 +29,12 @@
 	  <td class="stl">{{i['stats']['STL']}}</td>
 	  <td class="pf">{{i['stats']['PF']}}</td>
 	  <td class="wl">{{i['stats']['W']}}-{{i['stats']['L']}}</td>
-	  <td><button class="compare">Check<p class="hidden"><{{i['str']}}</p></button></td>
-	  <<td class="Draft"><input type="checkbox" name="PID" value='{{i['PID']}}' unchecked> Draft</input></td>
-
+	  <td><button class="compare">check<p class="hidden">{{i['str']}}</p></button></td>
+	  <td class="Draft"><input type="checkbox" name="PID" value={{i['PID']}} unchecked>Draft</input></td>
 	</tr>
 	{% endfor %}
       </table>
-
-
-     
+    
     </div>
     <div id="extraStats" class="right">
       <h2 id="name">Player:</h2>

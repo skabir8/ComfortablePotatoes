@@ -53,14 +53,5 @@ def packagePlayers(listPID):
         playerStats.append(packagePlayer(PID))
     return playerStats
 
-
 def packageAllPlayers():
-    listPID=allPid
-    playerStats = []
-    for PID in listPID:
-        playerStats.append(packagePlayer(PID))
-    return playerStats
-
-#print packagePlayers([201952,202362,202328])
-#print getPrevSeasonData(2403)
-#print packageAllPlayers()
+    return packagePlayers(allPid)
