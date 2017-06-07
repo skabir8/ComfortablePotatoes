@@ -17,7 +17,10 @@
     <div class="container" id="joinLeague" style="background-color:#F05F40;width:100%">
 
     <center> <h1> My Leagues </h1> </center>
-
+    {% for key, value in leagues.items() %}
+    <h2> League {{key}} </h2>
+    Members: {% for x in value %} {{x}} {% endfor %}
+    {% endfor %}
 
   </div>
 

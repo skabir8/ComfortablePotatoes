@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import thread
 import hashlib, os
-from utils.makeLeague import newLeague, joinLeague
+from utils.makeLeague import newLeague, joinLeague, getLeagues
 from utils.playerPicker import addAthlete
 from utils.auth import addUser, userLogin
 from utils.getData import packageAllPlayers
@@ -42,7 +42,7 @@ def auth():
         lmsg=info[1]
         if(info[0]):
             session['user']=request.form['user']
-            return redirect("/profile")
+            return redirect("/leagueform")
         else:
             session['lmsg'] = [False, lmsg]
             return redirect("/home#login")
@@ -53,15 +53,17 @@ def profile():
 
 @app.route("/leagueform")
 def leagueform():
+    user = session['user']
+    leagues = getLeagues(user)
     if 'lerror' in session:
         lerror = session['lerror']
         session.pop('lerror')
-        return render_template("leagueform.html", lerror=lerror)
+        return render_template("leagueform.html", lerror=lerror, leagues=leagues)
     if 'jerror' in session:
         jerror = session['jerror']
         session.pop('jerror')
-        return render_template("leagueform.html", jerror=jerror)
-    return render_template("leagueform.html")
+        return render_template("leagueform.html", jerror=jerror, leagues=leagues)
+    return render_template("leagueform.html", leagues=leagues)
 
 @app.route("/authleague", methods=["POST"])
 def authleague():

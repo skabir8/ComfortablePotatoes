@@ -45,16 +45,17 @@ def getLeagues(user):
     q = "SELECT name FROM sqlite_master WHERE type=\'table\'"
     c.execute(q)
     r = c.fetchall()
-    myleagues = []
+    myleagues = {}
     for x in r:
-        print x[0]
         q = "SELECT * FROM " + x[0]
         c.execute(q)
         s = c.fetchall()
-        print s
+        #print s
+        users = []
         for y in s:
-            if user == y[0]:
-                myleagues.append(x)
+            users.append(y[0])
+        print users
+        if user in users:
+            myleagues[x[0]] = users
     return myleagues
 
-print getLeagues('jordan')
