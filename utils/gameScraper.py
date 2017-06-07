@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 from lxml import etree
 import ast
 
-headersList=['MP','FG','FGA','FG%','3P','3PA','3P','FT','FTA','FT','ORB','DRB','TRB','AST','STL','BLK','TOV','PF','PTS','+/-']
+headersList=['MP','FG','FGA','FG%','3P','3PA','3P%','FT','FTA','FT%','ORB','DRB','TRB','AST','STL','BLK','TOV','PF','PTS','+/-']
 
 headers1 = {'user-agent': ('Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) '
                           'AppleWebKit/537.36 (KHTML, like Gecko) '
