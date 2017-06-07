@@ -36,3 +36,25 @@ def joinLeague(name, user):
     db.commit()
     db.close()
     return [True, "User Successfully Added to League"]
+
+def getLeagues(user):
+    db = sqlite3.connect("data/league.db")
+    c = db.cursor()
+    #q = "DROP TABLE jimmy"
+    #c.execute(q)
+    q = "SELECT name FROM sqlite_master WHERE type=\'table\'"
+    c.execute(q)
+    r = c.fetchall()
+    myleagues = []
+    for x in r:
+        print x[0]
+        q = "SELECT * FROM " + x[0]
+        c.execute(q)
+        s = c.fetchall()
+        print s
+        for y in s:
+            if user == y[0]:
+                myleagues.append(x)
+    return myleagues
+
+print getLeagues('jordan')
