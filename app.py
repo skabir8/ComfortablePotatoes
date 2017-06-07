@@ -3,7 +3,7 @@ import thread
 from flask_socketio import SocketIO, emit, send
 import hashlib, os
 import eventlet
-from utils.makeLeague import newLeague
+from utils.makeLeague import newLeague, joinLeague
 from utils.playerPicker import addAthlete
 from utils.auth import addUser, userLogin
 from utils.statsScraper import packagePlayers
@@ -62,6 +62,10 @@ def leagueform():
         lerror = session['lerror']
         session.pop('lerror')
         return render_template("leagueform.html", lerror=lerror)
+    if 'jerror' in session:
+        jerror = session['jerror']
+        session.pop('jerror')
+        return render_template("leagueform.html", jerror=jerror)
     return render_template("leagueform.html")
 
 @app.route("/authleague", methods=["POST"])
@@ -79,6 +83,17 @@ def authleague():
     else:
         session['lerror'] = r[1]
         return redirect('leagueform#makeLeague')
+
+@app.route("/authjoin", methods=["POST"])
+def authjoin():
+    name = request.form['name']
+    user = request.form['user']
+    r = joinLeague(name, user)
+    if r[0]:
+        return redirect("/leagueform")
+    else:
+        session['jerror'] = r[1]
+        return redirect("/leagueform#joinLeague")
 
 @app.route("/logout")
 def logout():

@@ -85,11 +85,20 @@
 
   </div>
   
-  <div class="container" id="joinLeague" style="background-color:#F05F40;width:100%>
+  <div class="container" id="joinLeague" style="background-color:#F05F40;width:100%">
+
     <center> <h1> Join a League! </h1> </center>
     <form class="form-inline" action="/authjoin" method="POST">
       <center>
 	<br>
+	{% if jerror %}
+	<div class="alert alert-danger">
+	  <center><strong>{{ jerror }}</strong></center>
+	</div>
+	<br>
+	{% endif %}
+	
+	
 	<div class="form-group">
 	  <label for="name">League Name:</label>
 	  <input class="form-control" id="name" placeholder="League Name" name="name">
@@ -100,11 +109,7 @@
 	<button style="background-color:#FFFFFF;color:#F05F40" class="btn btn-primary btn-xl page-scroll" name="submit" value="submit" type="submit">Join League</button>
 	<br>
 	<br>
-	{% if lerror %}
-	<div class="alert alert-danger">
-	  <center><strong>{{ lerror }}</strong></center>
-	</div>
-	{% endif %}
+
       </center>
   </form>
 

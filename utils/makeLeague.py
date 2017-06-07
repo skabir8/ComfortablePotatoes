@@ -19,6 +19,11 @@ def newLeague(name, user, multipliers):
 def joinLeague(name, user):
     db = sqlite3.connect("data/league.db")
     c = db.cursor()
+    q = " SELECT name from sqlite_master WHERE type=\'table\'"
+    c.execute(q)
+    r = c.fetchall()
+    if name not in [x[0] for x in r]:
+        return [False, "League Does Not Exist!"]
     q = "SELECT * FROM " + name
     c.execute(q)
     r = c.fetchall()
