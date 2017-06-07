@@ -59,3 +59,11 @@ def getLeagues(user):
             myleagues[x[0]] = users
     return myleagues
 
+def addPlayer(league, user, athlete):
+    db = sqlite3.connect("data/league.db")
+    c = db.cursor()
+    c.execute("SELECT users FROM " + league + "WHERE users==?", (user,))
+    r = c.fetchone()
+    return r
+
+

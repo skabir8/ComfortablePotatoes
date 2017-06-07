@@ -53,6 +53,8 @@ def profile():
 
 @app.route("/leagueform")
 def leagueform():
+    if 'user' not in session:
+        return redirect("/")
     user = session['user']
     leagues = getLeagues(user)
     if 'lerror' in session:
@@ -73,6 +75,7 @@ def authleague():
     multiplier += request.form['assists']
     multiplier += request.form['blocks']
     multiplier += request.form['steals']
+    multiplier += request.form['turnovers']
     r = newLeague(name, user, multiplier)
     if r[0]:
         return redirect('/leagueform')
