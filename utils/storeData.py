@@ -115,5 +115,3 @@ print databasestuff
 #print(packagePlayers([201566,2544]))
 db.commit()
 db.close()
-
-

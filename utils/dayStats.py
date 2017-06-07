@@ -2,10 +2,13 @@ import sqlite3
 import gameScraper
 
 def storeStats(day, stats):
-    db=sqlite3.connect("../data/stats.db")
+    db=sqlite3.connect("data/stats.db")
     c=db.cursor()
     for athleteStats in stats:
-        q="INSERT INTO days VALUES( \'"+athleteStats[0]+"\', "+str(day)+", \'"+athleteStats[1][athleteStats[0]]["MP"]+"\', \'"+athleteStats[1][athleteStats[0]]["FG"]+"\', \'"+athleteStats[1][athleteStats[0]]["FGA"]+"\', \'"+athleteStats[1][athleteStats[0]]["FG%"]+"\', \'"+athleteStats[1][athleteStats[0]]["3P"]+"\', \'"+athleteStats[1][athleteStats[0]]["3PA"]+"\', \'"+athleteStats[1][athleteStats[0]]["3P%"]+"\', \'"+athleteStats[1][athleteStats[0]]["FT"]+"\', \'"+athleteStats[1][athleteStats[0]]["FTA"]+"\', \'"+athleteStats[1][athleteStats[0]]["FT%"]+"\', \'"+athleteStats[1][athleteStats[0]]["ORB"]+"\', \'"+athleteStats[1][athleteStats[0]]["DRB"]+"\', \'"+athleteStats[1][athleteStats[0]]["TRB"]+"\', \'"+athleteStats[1][athleteStats[0]]["AST"]+"\', \'"+athleteStats[1][athleteStats[0]]["STL"]+"\', \'"+athleteStats[1][athleteStats[0]]["BLK"]+"\', \'"+athleteStats[1][athleteStats[0]]["TOV"]+"\', \'"+athleteStats[1][athleteStats[0]]["PF"]+"\', \'"+athleteStats[1][athleteStats[0]]["PTS"]+"\')"
+        name = athleteStats[0].replace("'","")
+        print name
+        q="INSERT INTO days VALUES( \'"+name+"\', "+str(day)+", \'"+athleteStats[1][athleteStats[0]]["MP"]+"\', \'"+athleteStats[1][athleteStats[0]]["FG"]+"\', \'"+athleteStats[1][athleteStats[0]]["FGA"]+"\', \'"+athleteStats[1][athleteStats[0]]["FG%"]+"\', \'"+athleteStats[1][athleteStats[0]]["3P"]+"\', \'"+athleteStats[1][athleteStats[0]]["3PA"]+"\', \'"+athleteStats[1][athleteStats[0]]["3P%"]+"\', \'"+athleteStats[1][athleteStats[0]]["FT"]+"\', \'"+athleteStats[1][athleteStats[0]]["FTA"]+"\', \'"+athleteStats[1][athleteStats[0]]["FT%"]+"\', \'"+athleteStats[1][athleteStats[0]]["ORB"]+"\', \'"+athleteStats[1][athleteStats[0]]["DRB"]+"\', \'"+athleteStats[1][athleteStats[0]]["TRB"]+"\', \'"+athleteStats[1][athleteStats[0]]["AST"]+"\', \'"+athleteStats[1][athleteStats[0]]["STL"]+"\', \'"+athleteStats[1][athleteStats[0]]["BLK"]+"\', \'"+athleteStats[1][athleteStats[0]]["TOV"]+"\', \'"+athleteStats[1][athleteStats[0]]["PF"]+"\', \'"+athleteStats[1][athleteStats[0]]["PTS"]+"\')"
+        print q
         c.execute(q)
     db.commit()
     db.close()
