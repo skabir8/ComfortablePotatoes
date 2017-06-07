@@ -34,11 +34,7 @@ def makeDB2():
 def makeDB3():
     db=sqlite3.connect('../data/stats.db')
     c=db.cursor()
-    q="CREATE TABLE days(\'Athlete\' text, "
-    for x in range(82):
-        q+="\'Day"+str(x+1)+"\' text, "
-    q=q[:-2]
-    q+=")"
+    q="CREATE TABLE days(\'Athlete\' text, \'Day\' integer, \'MP\' text, \'FG\' text, \'FGA\' text, \'FG%\' text, \'3P\' text, \'3PA\' text, \'3P%\' text, \'FT\' text, \'FTA\' text, \'FT%\' text, \'ORB\' text, \'DRB\' text, \'TRB\' text, \'AST\' text, \'STL\' text, \'BLK\' text, \'TOV\' text, \'PF\' text, \'PTS\' text)"
     c.execute(q)
     db.commit()
     db.close()
