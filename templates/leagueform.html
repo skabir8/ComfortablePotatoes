@@ -16,12 +16,17 @@
 <body>
     <div class="container" id="joinLeague" style="background-color:#F05F40;width:100%">
 
-    <center> <h1> My Leagues </h1> </center>
-    {% for key, value in leagues.items() %}
-    <h2> League {{key}} </h2>
-    Members: {% for x in value %} {{x}} {% endfor %}
-    {% endfor %}
-
+      <center> <h1> My Leagues </h1> </center>
+      {% if leagues.items()[0] %}
+      {% for key, value in leagues.items() %}
+      <h2> League {{key}} </h2>
+      Members: {% for x in value %} {{x}} {% endfor %}
+      {% endfor %}
+      {% else %}
+      <center> No leagues to show. Create or join a league below! </center>
+      {% endif %}
+      <br>
+      <br>
   </div>
 
   
@@ -69,15 +74,6 @@
 	</label>
 	<label class="radio-inline">
 	  <input type="radio" name="steals" value="2"> +2 Points
-	</label>
-	<br><br>
-
-	Point value for each player turnover:
-	<label class="radio-inline">
-	  <input type="radio" name="turnovers" value="1" checked> +1 Point
-	</label>
-	<label class="radio-inline">
-	  <input type="radio" name="turnovers" value="2"> +2 Points
 	</label>
 	<br><br>
 	

@@ -73,7 +73,6 @@ def authleague():
     multiplier += request.form['assists']
     multiplier += request.form['blocks']
     multiplier += request.form['steals']
-    multiplier += request.form['turnovers']
     r = newLeague(name, user, multiplier)
     if r[0]:
         return redirect('/leagueform')
