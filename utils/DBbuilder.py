@@ -12,7 +12,7 @@ def makeDB():
     db.close()
 
 
-makeDB()
+#makeDB()
 
 def prevSeasonCommand():
     q = "CREATE TABLE prevSeason("
@@ -29,4 +29,18 @@ def makeDB2():
     db.commit()
     db.close()
 
-makeDB2()
+#makeDB2()
+
+def makeDB3():
+    db=sqlite3.connect('../data/stats.db')
+    c=db.cursor()
+    q="CREATE TABLE days(\'Athlete\' text, "
+    for x in range(82):
+        q+="\'Day"+str(x+1)+"\' text, "
+    q=q[:-2]
+    q+=")"
+    c.execute(q)
+    db.commit()
+    db.close()
+
+makeDB3()

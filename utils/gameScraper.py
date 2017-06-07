@@ -2,6 +2,7 @@ import requests
 import urllib2
 from bs4 import BeautifulSoup
 from lxml import etree
+import ast
 
 headersList=['MP','FG','FGA','FG%','3P','3PA','3P','FT','FTA','FT','ORB','DRB','TRB','AST','STL','BLK','TOV','PF','PTS','+/-']
 
@@ -105,7 +106,7 @@ def getBoxScoreUrls():
     day=1
     i=1
     store=getAllGames()
-    file = open("testfile.txt","a")
+    file = open("testfile.txt","w")
     for y in store.keys():
         r = requests.get(store['game_'+str(i)])
 
@@ -113,14 +114,13 @@ def getBoxScoreUrls():
         data = r.text
         soup=BeautifulSoup(data,"html.parser")
         for x in soup.find_all('a'):
-            if (('/boxscores/' in x.get('href')) and (x.get('href') != '/boxscores/')) and ('index.fcgi?' not in x.get('href')) and ('pbp' not in x.get('href')) and ('shot-chart' not in x.get('href')) and ('month=' not in x.get('href')):
+            if (('/boxscores/' in x.get('href')) and (x.get('href') != '/boxscores/')) and ('index.fcgi?' not in x.get('href')) and ('pbp' not in x.get('href')) and ('shot-chart' not in x.get('href')) and ('month=' not in x.get('href')) and ('http://www.basketball-reference.com'+x.get('href') not in retList):
                 retList.append('http://www.basketball-reference.com'+x.get('href'))
         dayLog['day_'+str(i)]=retList
         retList=[]
         i+=1
         #print dayLog.values()[0]
-        for url in dayLog.values()[0]:
-            file.write(url+"\n")
+    file.write(str(dayLog))
     file.close()
     return dayLog
 
@@ -141,11 +141,14 @@ def getBoxScoreStats(boxUrl):
     #print y
     endL=[]
     store=[]
+    nameL=[]
     for elements in allData:
-
+        advanced = elements.find_all('th')
         name = elements.find_all('th')
-        if name[0].string == None:
+        AB=False
+        if name[0].string == None or advanced[0].string == None:
             name =  "0"
+            advanced = "0"
         else:
             name = name[0].string.strip()
 
@@ -155,15 +158,17 @@ def getBoxScoreStats(boxUrl):
         gameScores={}
         hold.append(name)
         gameScores[name]={}
-        for column in col:
-            if (name != 'Team Totals'):
-                if col[i].string== None:
-                    column_dat = '0'
-                else:
-                    column_dat = col[i].string.strip()
-                    print name, headersList[i], column_dat
-                gameScores[name][headersList[i]]=column_dat
-                i+=1
+
+        if (name not in nameL):
+            for column in col:
+                if (name != 'Team Totals'):
+                    if col[i].string== None:
+                        column_dat = '0'
+                    else:
+                        column_dat = col[i].string.strip()
+                    gameScores[name][headersList[i]]=column_dat
+                    i+=1
+        nameL.append(name)
         store.append(name)
         hold.append(gameScores)
         endL.append(hold)
@@ -177,20 +182,44 @@ def getPidList():
     ret={}
     for x in f.readlines():
         ret[x.split(',')[1]]=x.split(',')[0]
-    print ret
+
 
 def getPid(name):
     return playerDict[name]
 
-    
+
+
+
+def getDayBox(x):
+    f = open('testfile.txt', 'r')
+    return ast.literal_eval(f.read())['day_'+str(x)]
+
 #print getPid('Al-Farouq Aminu')
 
 
-
-
-
+#getBoxScoreUrls()
+#print getDayBox(12)
 #print getBoxScoreUrls()
 #print list(set(getBoxScoreUrls()))
 #print getBoxScoreUrls()
-
 #getBoxScoreStats('http://www.basketball-reference.com/boxscores/201703130CHO.html')
+
+
+def getDayData(x):
+    boxList=getDayBox(x)
+    hold=[]
+    retList=[]
+    for x in boxList:
+        hold+=getBoxScoreStats(x)
+    for x in hold:
+        if 'FG' in (x[1])[x[0]]:
+
+            retList.append(x)
+
+
+    return retList
+
+
+print getDayData(12)
+
+#print getBoxScoreUrls()
