@@ -69,7 +69,7 @@ def leagueform():
 
 @app.route("/authleague", methods=["POST"])
 def authleague():
-    name = request.form['name']
+    name = request.form['name'].replace(" ","")
     user = request.form['user']
     multiplier = request.form['points']
     multiplier += request.form['assists']
@@ -85,7 +85,7 @@ def authleague():
 
 @app.route("/authjoin", methods=["POST"])
 def authjoin():
-    name = request.form['name']
+    name = request.form['name'].replace(" ","")
     user = request.form['user']
     r = joinLeague(name, user)
     if r[0]:
