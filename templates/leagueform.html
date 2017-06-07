@@ -1,0 +1,80 @@
+{% extends "basic.html" %}
+
+{% block content %}
+
+<header>
+  <div class="header-content">
+    <div class="header-content-inner">
+      <h1 id="homeHeading"><font color="#ff751a">MAKE A LEAGUE!</font></h1>
+            </div>
+  </div>
+</header>
+
+<body>
+  <div class="container">
+    <form class="form-inline" action="/authleague">
+      <center>
+	<br>
+	<div class="form-group">
+	  <label for="name">League Name:</label>
+	  <input class="form-control" id="name" placeholder="League Name" name="name">
+	</div>
+	<br><br>
+	
+	Point value for each player point:
+	<label class="radio-inline">
+	  <input type="radio" name="points" value="1" checked> +1 Point
+	</label>
+	<label class="radio-inline">
+	  <input type="radio" name="points" value="2"> +2 Points
+	</label>
+	<br><br>
+
+	Point value for each player assist:
+	<label class="radio-inline">
+	  <input type="radio" name="assists" value="1" checked> +1 Point
+	</label>
+	<label class="radio-inline">
+	  <input type="radio" name="assists" value="2"> +2 Points
+	</label>
+	<br><br>
+
+	Point value for each player block:
+	<label class="radio-inline">
+	  <input type="radio" name="blocks" value="1" checked> +1 Point
+	</label>
+	<label class="radio-inline">
+	  <input type="radio" name="blocks" value="2"> +2 Points
+	</label>
+	<br><br>
+
+	Point value for each player steal:
+	<label class="radio-inline">
+	  <input type="radio" name="steals" value="1" checked> +1 Point
+	</label>
+	<label class="radio-inline">
+	  <input type="radio" name="steals" value="2"> +2 Points
+	</label>
+	<br><br>
+
+	Point value for each player turnover:
+	<label class="radio-inline">
+	  <input type="radio" name="turnovers" value="1" checked> +1 Point
+	</label>
+	<label class="radio-inline">
+	  <input type="radio" name="turnovers" value="2"> +2 Points
+	</label>
+	<br><br>
+	
+	
+	<input type="hidden" class="form-control" name="user" value="{{ session['user'] }}">
+	<button style="background-color:#F05F40;color:#FFFFFF" class="btn btn-primary btn-xl page-scroll" name="submit" value="submit" type="submit">Make League</button>
+	<br>
+	<br>
+      </center>
+  </form>
+
+  </div>
+</body>
+
+{% endblock %}

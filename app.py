@@ -56,6 +56,10 @@ def auth():
 def profile():
     return render_template("profile.html")
 
+@app.route("/leagueform")
+def leagueform():
+    return render_template("leagueform.html")
+
 @app.route("/logout")
 def logout():
     session.pop('user')
