@@ -6,7 +6,7 @@ def storeStats(day, stats):
     c=db.cursor()
     for athleteStats in stats:
         name = athleteStats[0].replace("'","")
-        q="INSERT INTO days VALUES( \'"+name+"\', "+str(day)+", \'"+athleteStats[1][athleteStats[0]]["MP"]+"\', \'"+athleteStats[1][athleteStats[0]]["FG"]+"\', \'"+athleteStats[1][athleteStats[0]]["FGA"]+"\', \'"+athleteStats[1][athleteStats[0]]["FG%"]+"\', \'"+athleteStats[1][athleteStats[0]]["3P"]+"\', \'"+athleteStats[1][athleteStats[0]]["3PA"]+"\', \'"+athleteStats[1][athleteStats[0]]["3P%"]+"\', \'"+athleteStats[1][athleteStats[0]]["FT"]+"\', \'"+athleteStats[1][athleteStats[0]]["FTA"]+"\', \'"+athleteStats[1][athleteStats[0]]["FT%"]+"\', \'"+athleteStats[1][athleteStats[0]]["ORB"]+"\', \'"+athleteStats[1][athleteStats[0]]["DRB"]+"\', \'"+athleteStats[1][athleteStats[0]]["TRB"]+"\', \'"+athleteStats[1][athleteStats[0]]["AST"]+"\', \'"+athleteStats[1][athleteStats[0]]["STL"]+"\', \'"+athleteStats[1][athleteStats[0]]["BLK"]+"\', \'"+athleteStats[1][athleteStats[0]]["TOV"]+"\', \'"+athleteStats[1][athleteStats[0]]["PF"]+"\', \'"+athleteStats[1][athleteStats[0]]["PTS"]+"\')"
+        q="INSERT INTO days VALUES( \'"+name+"\', "+str(day)+", \'"+athleteStats[1][athleteStats[0]]["MP"]+"\', \'"+athleteStats[1][athleteStats[0]]["FG"]+"\', \'"+athleteStats[1][athleteStats[0]]["FGA"]+"\', \'"+athleteStats[1][athleteStats[0]]["FGPercent"]+"\', \'"+athleteStats[1][athleteStats[0]]["3P"]+"\', \'"+athleteStats[1][athleteStats[0]]["3PA"]+"\', \'"+athleteStats[1][athleteStats[0]]["3PPercent"]+"\', \'"+athleteStats[1][athleteStats[0]]["FT"]+"\', \'"+athleteStats[1][athleteStats[0]]["FTA"]+"\', \'"+athleteStats[1][athleteStats[0]]["FTPercent"]+"\', \'"+athleteStats[1][athleteStats[0]]["ORB"]+"\', \'"+athleteStats[1][athleteStats[0]]["DRB"]+"\', \'"+athleteStats[1][athleteStats[0]]["TRB"]+"\', \'"+athleteStats[1][athleteStats[0]]["AST"]+"\', \'"+athleteStats[1][athleteStats[0]]["STL"]+"\', \'"+athleteStats[1][athleteStats[0]]["BLK"]+"\', \'"+athleteStats[1][athleteStats[0]]["TOV"]+"\', \'"+athleteStats[1][athleteStats[0]]["PF"]+"\', \'"+athleteStats[1][athleteStats[0]]["PTS"]+"\')"
         c.execute(q)
     db.commit()
     db.close()
@@ -20,16 +20,16 @@ def getStats(name):
     retDict={}
     for day in listDays:
         tempDict={}
-        for stat in ["MP","FG","FGA","FG%","3P","3PA","3P%","FT","FTA","FT%","ORB","DRB","TRB","AST","STL","BLK","TOV","PF","PTS"]:
+        for stat in ["MP","FG","FGA","FGPercent","FT","FTA","FTPercent","ORB","DRB","TRB","AST","STL","BLK","TOV","PF","PTS"]:
             q="SELECT "+stat+" FROM days WHERE Athlete=\'"+name+"\' AND Day="+str(day[0])
-            print q
+
             c.execute(q)
             listStats=c.fetchall()
             tempDict[stat]=listStats[0][0]
         retDict[str(day[0])]=tempDict
     return retDict
 
-#print getStats("Kristaps Porzingis")
+print getStats("Kristaps Porzingis")
 
 #storeStats(5, gameScraper.getDayData(5))
 

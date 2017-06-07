@@ -1,16 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 import thread
-from flask_socketio import SocketIO, emit, send
 import hashlib, os
-import eventlet
 from utils.makeLeague import newLeague, joinLeague
 from utils.playerPicker import addAthlete
 from utils.auth import addUser, userLogin
 from utils.getData import packageAllPlayers
-eventlet.monkey_patch(os=False)
 app = Flask(__name__)
-app.secret_key = 'as9pdfuhasodifuhasiodfhuasiodfhuasiodfhuasodifuh'
-socketio = SocketIO(app)
+app.secret_key=os.urandom(32)
 
 
 @app.route("/")
@@ -109,7 +105,7 @@ def stats(leagueID):
     else:
         redirect(url_for('home'))
 
-@app.route('/draft/<leagueID>/')
+@app.route('/draftresult/<leagueID>/')
 def draft(leagueID):
     i=leagueID
     if 'user' in session:
@@ -124,4 +120,4 @@ def draft(leagueID):
 
 if __name__ == "__main__":
     app.debug = True
-    socketio.run(app)
+    app.run()
