@@ -75,10 +75,10 @@ def authleague():
     multiplier += request.form['turnovers']
     r = newLeague(name, user, multiplier)
     if r[0]:
-        return redirect(url_for('leagueform'))
+        return redirect('/leagueform')
     else:
         session['lerror'] = r[1]
-        return redirect(url_for('leagueform'))
+        return redirect('leagueform#makeLeague')
 
 @app.route("/logout")
 def logout():

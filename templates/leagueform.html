@@ -5,12 +5,17 @@
 <header>
   <div class="header-content">
     <div class="header-content-inner">
-      <h1 id="homeHeading"><font color="#ff751a">MAKE A LEAGUE!</font></h1>
-            </div>
+      <h1 id="homeHeading"><font color="#ff751a">LEAGUES!</font></h1>
+      <br><br><br>
+    </div>
+    <a href="#myLeagues" class="btn btn-primary btn-xl page-scroll">My Leagues</a>
+    <a href="#makeLeague" class="btn btn-primary btn-xl page-scroll">Make Your Own League</a>
+    <a href="#joinLeague" class="btn btn-primary btn-xl page-scroll">Join a League</a>
   </div>
 </header>
 <body>
   <div class="container" id="makeLeague">
+    <center> <h1> Make A League! </h1> </center>
     <form class="form-inline" action="/authleague" method="POST">
       <center>
 	<br>
@@ -68,6 +73,31 @@
 	
 	<input type="hidden" class="form-control" name="user" value="{{ session['user'] }}">
 	<button style="background-color:#F05F40;color:#FFFFFF" class="btn btn-primary btn-xl page-scroll" name="submit" value="submit" type="submit">Make League</button>
+	<br>
+	<br>
+	{% if lerror %}
+	<div class="alert alert-danger">
+	  <center><strong>{{ lerror }}</strong></center>
+	</div>
+	{% endif %}
+      </center>
+  </form>
+
+  </div>
+  
+  <div class="container" id="joinLeague" style="background-color:#F05F40;width:100%>
+    <center> <h1> Join a League! </h1> </center>
+    <form class="form-inline" action="/authjoin" method="POST">
+      <center>
+	<br>
+	<div class="form-group">
+	  <label for="name">League Name:</label>
+	  <input class="form-control" id="name" placeholder="League Name" name="name">
+	</div
+<br>
+     	  <input type="hidden" class="form-control" name="user" value="{{ session['user'] }}">
+	  <br><br>
+	<button style="background-color:#FFFFFF;color:#F05F40" class="btn btn-primary btn-xl page-scroll" name="submit" value="submit" type="submit">Join League</button>
 	<br>
 	<br>
 	{% if lerror %}
