@@ -58,7 +58,27 @@ def profile():
 
 @app.route("/leagueform")
 def leagueform():
+    if 'lerror' in session:
+        lerror = session['lerror']
+        session.pop('lerror')
+        return render_template("leagueform.html", lerror=lerror)
     return render_template("leagueform.html")
+
+@app.route("/authleague", methods=["POST"])
+def authleague():
+    name = request.form['name']
+    user = request.form['user']
+    multiplier = request.form['points']
+    multiplier += request.form['assists']
+    multiplier += request.form['blocks']
+    multiplier += request.form['steals']
+    multiplier += request.form['turnovers']
+    r = newLeague(name, user, multiplier)
+    if r[0]:
+        return redirect(url_for('leagueform'))
+    else:
+        session['lerror'] = r[1]
+        return redirect(url_for('leagueform'))
 
 @app.route("/logout")
 def logout():
@@ -69,15 +89,6 @@ def logout():
 def stats():
     stats = packagePlayers([201566,2544,201935])
     return render_template("playerStats.html", list=stats)
-
-@app.route('/makeLeague', methods=['POST'])
-def makeLeague():
-    if 'user' in session:
-        print request.form
-        newLeague(request.form['user1'],request.form['user2'],request.form['user3'],request.form['user4'],request.form['user5'])
-    else:
-        return redirect(url_for("/home"))
-    return redirect(url_for("/home"))
 
 @app.route('/draft/<leagueID>/')
 def draft(leagueID):

@@ -1,7 +1,7 @@
 import sqlite3
 
-def makeLeague(name, user, multipliers):
-    db = sqlite3.connect("../data/league.db")
+def newLeague(name, user, multipliers):
+    db = sqlite3.connect("data/league.db")
     c = db.cursor()
     q = " SELECT name from sqlite_master WHERE type=\'table\'"
     c.execute(q)
@@ -14,11 +14,10 @@ def makeLeague(name, user, multipliers):
     c.execute("INSERT INTO " + name + " VALUES(?, ?, ?)", (user, None, multipliers,))
     return [True, "League Successfully Created"]
 
-print makeLeague("jordan","jordan","12121")
-    
+ 
 
 
-def newLeague(user1, user2, user3, user4, user5):
+def newLeague2(user1, user2, user3, user4, user5):
     db=sqlite3.connect("data/league.db")
     c=db.cursor()
     q="select name from sqlite_master where type=\'table\'"

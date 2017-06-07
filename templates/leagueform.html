@@ -10,8 +10,8 @@
   </div>
 </header>
 <body>
-  <div class="container">
-    <form class="form-inline" action="/authleague">
+  <div class="container" id="makeLeague">
+    <form class="form-inline" action="/authleague" method="POST">
       <center>
 	<br>
 	<div class="form-group">
@@ -70,6 +70,11 @@
 	<button style="background-color:#F05F40;color:#FFFFFF" class="btn btn-primary btn-xl page-scroll" name="submit" value="submit" type="submit">Make League</button>
 	<br>
 	<br>
+	{% if lerror %}
+	<div class="alert alert-danger">
+	  <center><strong>{{ lerror }}</strong></center>
+	</div>
+	{% endif %}
       </center>
   </form>
 
