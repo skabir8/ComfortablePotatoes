@@ -113,14 +113,12 @@ def logout():
     return redirect(url_for('home'))
 
 @app.route('/draft/<leagueID>')
-def stats(leagueID):
-    #listOfPlayersinLeague=getPlayersInLeague(leagueID)
-    if 'user' in session:
-        LID=leagueID
-        stats = packageAllPlayers()
-        return render_template("playerStats.html", list=stats, LID=leagueID)
-    else:
-        redirect(url_for('home'))
+def stats1(leagueID):
+    LID=leagueID
+    stats = packageAllPlayers()
+    
+    return render_template("playerStats2.html", list=stats)
+
 
 @app.route('/join/<leagueID>', methods=["POST", "GET"])
 def joinNewLeague(leagueID):
@@ -157,6 +155,8 @@ def draft(leagueID):
 def players():
     stats = packageAllPlayers()
     return render_template("playerStats2.html", list=stats)
+
+
 
 @app.route('/players/<name>')
 def player(name):

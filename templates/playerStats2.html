@@ -8,6 +8,7 @@
   </head>
   <body>
     <div id="info" class="left">
+
       <table border="1" id="statsTable">
 	<tr>
 	  <th>Player</th>
@@ -34,7 +35,7 @@
 	</tr>
 	{% endfor %}
       </table>
-    
+
     </div>
     <div id="extraStats" class="right">
       <h2 id="name">Player:</h2>
@@ -56,11 +57,12 @@
       <p id="stl">Steals:</p>
       <p id="pf">Fouls:</p>
       <p id="dreb">Defensive Rebounds:</p>
-      <form>
-	<input type="submit" value="Draft">
-      </form>
+
+
+  <form action="/auth">
+  <input type="submit" value="Submit">
+</form>
       <br><br>
-      <p>If value is in form n0(n1), n0 is shots made and n1 is shots attempted.</p>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="../static/playerInfo.js"></script>
