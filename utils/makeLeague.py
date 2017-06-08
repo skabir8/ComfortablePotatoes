@@ -87,3 +87,44 @@ def getAllLeagues(user):
             if user not in users:
                 myleagues[x[0]] = users
     return myleagues
+
+def addPlayer(league, user, PID):
+    db = sqlite3.connect("../data/league.db")
+    c = db.cursor()
+    c.execute("Select * from " + league)
+    r = c.fetchall()
+    #print r
+    otherids = []
+    myids = []
+    for x in r:
+        if x[0] == user:
+            myids = getAthletes(x)
+        else:
+            otherids.extend(getAthletes(x))
+    print myids
+    if PID in myids:
+        return [False, "You already have this player"]
+    if PID in otherids:
+        return [False, "Someone in your league already has this player"]
+    if len(myids) >= 11:
+        return [False, "You own the maximum number of athletes"]
+    print myids
+    newids = "'" + athletesToString(myids + [PID]) + "'"
+    print newids
+    userq = "'" + user + "'"
+    q = "UPDATE %s SET athletes = %s WHERE users=%s" % (league, newids, userq,)
+    print q
+    c.execute(q)
+    db.commit()
+    return [True, "Player added to your roster"]
+
+def getAthletes(sqlr):
+    if len(sqlr) < 2 or sqlr[1] == None:
+        return []
+    return sqlr[1].split(',')
+        
+def athletesToString(lis):
+    if lis == []:
+        return ""
+    else:
+        return ','.join(lis)
