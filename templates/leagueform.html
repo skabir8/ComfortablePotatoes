@@ -14,21 +14,37 @@
   </div>
 </header>
 <body>
-    <div class="container" id="myLeagues" style="background-color:#F05F40;width:100%">
 
-      <center> <h1> My Leagues </h1> </center>
-      {% if leagues.items()[0] %}
-      {% for key, value in leagues.items() %}
-      <h2> League {{key}} </h2>
-      Members: {% for x in value %} {{x}} {% endfor %}
-      <a href="/viewleague/{{key}}" class="btn btn-info" role="button">View League</a>
-      {% endfor %}
-      {% else %}
-      <center> No leagues to show. Create or join a league below! </center>
-      {% endif %}
-      <br>
-      <br>
-  </div>
+  <div class="container" id="myLeague" style="background-color:#F05F40;width:100%">
+    <div class="container" id="myLeagues1" style="background-color:#FFFFFF;color:#F05F40;width:100%">
+
+      <center><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#myLeagues2">My League</button>
+              </h4>
+            <div id="myLeagues2" class="panel-collapse collapse">
+              <ul class="list-group">
+                    <li class="list-group-item">
+                {% if leagues.items()[0] %}
+                {% for key, value in leagues.items() %}
+                <h2> League {{key}} </h2>
+                Members: {% for x in value %} {{x}} {% endfor %}
+
+                <a href="/join/{{key}}" class="btn btn-info" role="button">Join</a>
+                {% endfor %}
+                {% else %}
+                <center> No leagues to show. Create or join a league below! </center>
+                {% endif %}
+                <br>
+                <br>
+            </li>
+
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
 
 
   <div class="container" id="makeLeague">
@@ -94,9 +110,9 @@
   </div>
 
   <div class="container" id="joinLeague" style="background-color:#F05F40;width:100%">
-    <div class="container" id="AvailableLeagues" style="background-color:#FFFFFF;color:#F05F40">
+    <div class="container" id="AvailableLeagues" style="background-color:#FFFFFF;color:#F05F40;width:100%">
 
-      <center><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#collapse1">Simple collapsible</button><>
+      <center><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#collapse1">New</button>
               </h4>
             <div id="collapse1" class="panel-collapse collapse">
               <ul class="list-group">
