@@ -66,4 +66,24 @@ def addPlayer(league, user, athlete):
     r = c.fetchone()
     return r
 
-
+def getAllLeagues(user):
+    db = sqlite3.connect("data/league.db")
+    c = db.cursor()
+    #q = "DROP TABLE jimmy"
+    #c.execute(q)
+    q = "SELECT name FROM sqlite_master WHERE type=\'table\'"
+    c.execute(q)
+    r = c.fetchall()
+    myleagues = {}
+    for x in r:
+        q = "SELECT * FROM " + x[0]
+        c.execute(q)
+        s = c.fetchall()
+        #print s
+        users = []
+        for y in s:
+            users.append(y[0])
+        if (len(users) <=5):
+            if user not in users:
+                myleagues[x[0]] = users
+    return myleagues

@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 
 import hashlib, os
-from utils.makeLeague import newLeague, joinLeague, getLeagues
+from utils.makeLeague import newLeague, joinLeague, getLeagues,getAllLeagues
 from utils.playerPicker import addAthlete
 from utils.auth import addUser, userLogin
 from utils.getData import packageAllPlayers
@@ -55,11 +55,13 @@ def profile():
 
 @app.route("/leagueform")
 def leagueform():
-    if 'user' not in session:
-        return redirect("/")
     if 'user' in session:
         user = session['user']
         leagues = getLeagues(user)
+        allLeagues=getAllLeagues(user)
+        return render_template("leagueform.html", leagues=leagues, allLeagues=allLeagues)
+    if 'user' not in session:
+        return redirect("/")
     if 'lerror' in session:
         lerror = session['lerror']
         session.pop('lerror')
@@ -68,7 +70,8 @@ def leagueform():
         jerror = session['jerror']
         session.pop('jerror')
         return render_template("leagueform.html", jerror=jerror, leagues=leagues)
-    return render_template("leagueform.html", leagues=leagues)
+    return redirect("/")
+
 
 @app.route("/authleague", methods=["POST"])
 def authleague():
@@ -91,14 +94,18 @@ def authleague():
 
 @app.route("/authjoin", methods=["POST"])
 def authjoin():
-    name = request.form['name'].replace(" ","")
-    user = request.form['user']
-    r = joinLeague(name, user)
-    if r[0]:
-        return redirect("/leagueform")
+    if 'user' in session:
+        name = request.form['name'].replace(" ","")
+        user = request.form['user']
+        r = joinLeague(name, user)
+        if r[0]:
+            return redirect("/leagueform")
+        else:
+            session['jerror'] = r[1]
+            return redirect("/leagueform#joinLeague")
     else:
-        session['jerror'] = r[1]
-        return redirect("/leagueform#joinLeague")
+        return redirect("/home")
+
 
 @app.route("/logout")
 def logout():
@@ -112,6 +119,24 @@ def stats(leagueID):
         LID=leagueID
         stats = packageAllPlayers()
         return render_template("playerStats.html", list=stats, LID=leagueID)
+    else:
+        redirect(url_for('home'))
+
+@app.route('/join/<leagueID>', methods=["POST", "GET"])
+def joinNewLeague(leagueID):
+    if 'user' in session:
+        LID=leagueID
+        username=session['user']
+        leagues=getAllLeagues(username)
+        print leagues
+        if (session['user'] not in leagues[LID]):
+            r = joinLeague(LID, username)
+            if r[0]:
+                return redirect("/leagueform")
+            else:
+                session['jerror'] = r[1]
+                return redirect("/leagueform")
+
     else:
         redirect(url_for('home'))
 
@@ -142,7 +167,6 @@ def player(name):
         for x in data:
             retList.append(x)
         retList.sort()
-        print retList
         return render_template("playerStats.html", name=pName, days=retList,data=data)
     return redirect(url_for("home"))
 

@@ -21,7 +21,7 @@
       {% for key, value in leagues.items() %}
       <h2> League {{key}} </h2>
       Members: {% for x in value %} {{x}} {% endfor %}
-      <a href="/viewleague/{{key}}" class="btn btn-info" role="button">Link Button</a>
+      <a href="/viewleague/{{key}}" class="btn btn-info" role="button">View League</a>
       {% endfor %}
       {% else %}
       <center> No leagues to show. Create or join a league below! </center>
@@ -94,6 +94,36 @@
   </div>
 
   <div class="container" id="joinLeague" style="background-color:#F05F40;width:100%">
+    <div class="container" id="AvailableLeagues" style="background-color:#FFFFFF;color:#F05F40">
+
+      <center><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#collapse1">Simple collapsible</button><>
+              </h4>
+            <div id="collapse1" class="panel-collapse collapse">
+              <ul class="list-group">
+                    <li class="list-group-item">
+                {% if allLeagues.items()[0] %}
+                {% for key, value in allLeagues.items() %}
+                <h2> League {{key}} </h2>
+                Members: {% for x in value %} {{x}} {% endfor %}
+
+                <a href="/join/{{key}}" class="btn btn-info" role="button">Join</a>
+                {% endfor %}
+                {% else %}
+                <center> No leagues to show. Create or join a league below! </center>
+                {% endif %}
+                <br>
+                <br>
+            </li>
+
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
 
     <center> <h1> Join a League! </h1> </center>
     <form class="form-inline" action="/authjoin" method="POST">
@@ -122,6 +152,8 @@
   </form>
 
   </div>
+
+
 </body>
 
 {% endblock %}
