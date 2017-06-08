@@ -21,6 +21,7 @@
       {% for key, value in leagues.items() %}
       <h2> League {{key}} </h2>
       Members: {% for x in value %} {{x}} {% endfor %}
+      <a href="/viewleague/{{key}}" class="btn btn-info" role="button">Link Button</a>
       {% endfor %}
       {% else %}
       <center> No leagues to show. Create or join a league below! </center>
@@ -29,7 +30,7 @@
       <br>
   </div>
 
-  
+
   <div class="container" id="makeLeague">
     <center> <h1> Make A League! </h1> </center>
     <form class="form-inline" action="/authleague" method="POST">
@@ -40,7 +41,7 @@
 	  <input class="form-control" id="name" placeholder="League Name" name="name">
 	</div>
 	<br><br>
-	
+
 	Point value for each player point:
 	<label class="radio-inline">
 	  <input type="radio" name="points" value="1" checked> +1 Point
@@ -76,8 +77,8 @@
 	  <input type="radio" name="steals" value="2"> +2 Points
 	</label>
 	<br><br>
-	
-	
+
+
 	<input type="hidden" class="form-control" name="user" value="{{ session['user'] }}">
 	<button style="background-color:#F05F40;color:#FFFFFF" class="btn btn-primary btn-xl page-scroll" name="submit" value="submit" type="submit">Make League</button>
 	<br>
@@ -91,7 +92,7 @@
   </form>
 
   </div>
-  
+
   <div class="container" id="joinLeague" style="background-color:#F05F40;width:100%">
 
     <center> <h1> Join a League! </h1> </center>
@@ -104,8 +105,8 @@
 	</div>
 	<br>
 	{% endif %}
-	
-	
+
+
 	<div class="form-group">
 	  <label for="name">League Name:</label>
 	  <input class="form-control" id="name" placeholder="League Name" name="name">

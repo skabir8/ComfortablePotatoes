@@ -6,17 +6,19 @@ from utils.playerPicker import addAthlete
 from utils.auth import addUser, userLogin
 from utils.getData import packageAllPlayers
 from utils.playerIDGet import getPlayerIDs
+from utils.dayStats import getStats
 app = Flask(__name__)
 app.secret_key=os.urandom(32)
 
 
 @app.route("/")
 def logCheck():
+    if 'user' in session:
+        return redirect("/leagueform")
     return redirect(url_for('home'))
 
 @app.route('/home')
 def home():
-    print session
     if 'rmsg' in session:
         rmsg = session['rmsg']
         session.pop('rmsg')
@@ -36,7 +38,6 @@ def auth():
             session['rmsg'] = [False, rmsg]
         else:
             session['rmsg'] = [True, rmsg]
-        print rmsg
         return redirect("/home#register")
     else:
         info = userLogin(request.form['user'], request.form['pass'])
@@ -56,8 +57,9 @@ def profile():
 def leagueform():
     if 'user' not in session:
         return redirect("/")
-    user = session['user']
-    leagues = getLeagues(user)
+    if 'user' in session:
+        user = session['user']
+        leagues = getLeagues(user)
     if 'lerror' in session:
         lerror = session['lerror']
         session.pop('lerror')
@@ -70,19 +72,22 @@ def leagueform():
 
 @app.route("/authleague", methods=["POST"])
 def authleague():
-    name = request.form['name'].replace(" ","")
-    user = request.form['user']
-    multiplier = request.form['points']
-    multiplier += request.form['assists']
-    multiplier += request.form['blocks']
-    multiplier += request.form['steals']
-    multiplier += request.form['turnovers']
-    r = newLeague(name, user, multiplier)
-    if r[0]:
-        return redirect('/leagueform')
+    if 'user' in session:
+        name = request.form['name'].replace(" ","")
+        user = request.form['user']
+        multiplier = request.form['points']
+        multiplier += request.form['assists']
+        multiplier += request.form['blocks']
+        multiplier += request.form['steals']
+        r = newLeague(name, user, multiplier)
+        if r[0]:
+            return redirect('/leagueform')
+        else:
+            session['lerror'] = r[1]
+            return redirect('leagueform#makeLeague')
     else:
-        session['lerror'] = r[1]
-        return redirect('leagueform#makeLeague')
+        return redirect("/")
+
 
 @app.route("/authjoin", methods=["POST"])
 def authjoin():
@@ -110,19 +115,36 @@ def stats(leagueID):
     else:
         redirect(url_for('home'))
 
-@app.route('/draftresult/<leagueID>/')
+@app.route('/viewleague/<leagueID>/')
 def draft(leagueID):
     i=leagueID
     if 'user' in session:
-        print request.form
+        leagues = getLeagues(session['user'])
+        leagueID=i
+        for x in leagues:
+            if x == leagueID:
+                return render_template('viewLeague.html', leagues=leagues,leagueID=leagueID)
     else:
-        return redirect(url_for("/home"))
-    return render_template('newLeague.html')
+        return redirect(url_for("home"))
+    return redirect(url_for("home"))
 
 @app.route('/players/')
 def players():
     stats = packageAllPlayers()
     return render_template("playerStats2.html", list=stats)
+
+@app.route('/players/<name>')
+def player(name):
+    pName = name
+    if 'user' not in session:
+        data=getStats(name)
+        retList=[]
+        for x in data:
+            retList.append(x)
+        retList.sort()
+        print retList
+        return render_template("playerStats.html", name=pName, days=retList,data=data)
+    return redirect(url_for("home"))
 
 
 if __name__ == "__main__":

@@ -1,0 +1,41 @@
+{% extends "basic.html" %}
+
+{% block content %}
+
+<header>
+  <div class="header-content">
+    <div class="header-content-inner">
+      <h1 id="homeHeading"><font color="#ff751a">LEAGUES!</font></h1>
+      <br><br><br>
+    </div>
+    <a href="#myLeagues" class="btn btn-primary btn-xl page-scroll">My Leagues</a>
+    <a href="#makeLeague" class="btn btn-primary btn-xl page-scroll">Make Your Own League</a>
+    <a href="#joinLeague" class="btn btn-primary btn-xl page-scroll">Join a League</a>
+  </div>
+</header>
+<body>
+    <div class="container" id="myLeagues" style="background-color:#F05F40;width:100%">
+
+      <center> <h1> </h1> </center>
+      {% if leagues.items()[0] %}
+        {% for key, value in leagues.items() %}
+          {% if key == leagueID %}
+            <h2> League {{key}} </h2>
+              Members: {% for x in value %} {{x}} {% endfor %}
+                {% endif %}
+        {% endfor %}
+
+      {% else %}
+      <center> No Data</center>
+      {% endif %}
+
+      <br>
+      <br>
+  </div>
+
+
+
+
+</body>
+
+{% endblock %}
