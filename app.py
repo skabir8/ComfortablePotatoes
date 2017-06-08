@@ -116,8 +116,8 @@ def logout():
 def stats1(leagueID):
     LID=leagueID
     stats = packageAllPlayers()
-    
-    return render_template("playerStats2.html", list=stats)
+
+    return render_template("playerStats2.html", list=stats, LID=LID)
 
 
 @app.route('/join/<leagueID>', methods=["POST", "GET"])
@@ -151,8 +151,9 @@ def draft(leagueID):
         return redirect(url_for("home"))
     return redirect(url_for("home"))
 
-@app.route('/players/')
-def players():
+@app.route('/add/<leagueID>', methods=["POST"])
+def players4444(leagueID):
+    print request.form
     stats = packageAllPlayers()
     return render_template("playerStats2.html", list=stats)
 
