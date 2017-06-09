@@ -118,6 +118,16 @@ def getAthletes(sqlr):
         return []
     return sqlr[1].split(',')
 
+def getLeagueAthletes(league, user):
+    db = sqlite3.connect("data/league.db")
+    c = db.cursor()
+    userq = "'" + user + "'"
+    c.execute("Select athletes from " + league + " WHERE users=" + userq)
+    r = c.fetchone()
+    db.commit()
+    db.close()
+    return getAthletes(r)
+
 def athletesToString(lis):
     if lis == []:
         return ""
@@ -145,3 +155,5 @@ def getAllLeagues(user):
             if user not in users:
                 myleagues[x[0]] = users
     return myleagues
+
+
