@@ -108,18 +108,31 @@ def addPlayer(league, user, PID):
     db.commit()
     return [True, "Player added to your roster"]
 
+
+    
+
 def getAthletes(sqlr):
-    print sqlr
     if len(sqlr) < 2 or sqlr[1] == None:
-        print "sdfasdf"
         return []
     return sqlr[1].split(',')
+
+def maxplayers(league, user):
+    db = sqlite3.connect("data/league.db")
+    c = db.cursor()
+    userq = "'" + user + "'"
+    q = "Select * from " + league + " WHERE users=" + userq
+    c.execute(q)
+    r = c.fetchone()
+    return len(getAthletes(r)) > 10
+
+print maxplayers('swagmonkey','jordan')
 
 def getLeagueAthletes(league, user):
     db = sqlite3.connect("data/league.db")
     c = db.cursor()
     userq = "'" + user + "'"
-    c.execute("Select * from " + league + " WHERE users=" + userq)
+    q = "Select * from " + league + " WHERE users=" + userq
+    c.execute(q)
     r = c.fetchone()
     db.commit()
     db.close()
