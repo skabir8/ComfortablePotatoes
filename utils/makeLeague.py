@@ -109,7 +109,9 @@ def addPlayer(league, user, PID):
     return [True, "Player added to your roster"]
 
 def getAthletes(sqlr):
+    print sqlr
     if len(sqlr) < 2 or sqlr[1] == None:
+        print "sdfasdf"
         return []
     return sqlr[1].split(',')
 
@@ -117,7 +119,7 @@ def getLeagueAthletes(league, user):
     db = sqlite3.connect("data/league.db")
     c = db.cursor()
     userq = "'" + user + "'"
-    c.execute("Select athletes from " + league + " WHERE users=" + userq)
+    c.execute("Select * from " + league + " WHERE users=" + userq)
     r = c.fetchone()
     db.commit()
     db.close()
@@ -151,3 +153,5 @@ def getAllLeagues(user):
                 myleagues[x[0]] = users
     return myleagues
 #print getLeagueAthletes('swagmonkey', 'shariarshariar')
+
+
