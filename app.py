@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 
 import hashlib, os
-from utils.makeLeague import newLeague, joinLeague, getLeagues,getAllLeagues,addPlayer
+from utils.makeLeague import newLeague, joinLeague, getLeagues,getAllLeagues,addPlayer,getLeagueAthletes
 from utils.playerPicker import addAthlete
 from utils.auth import addUser, userLogin
 from utils.getData import packageAllPlayers
@@ -140,11 +140,16 @@ def joinNewLeague(leagueID):
 @app.route('/viewleague/<leagueID>/')
 def draft(leagueID):
     i=leagueID
+    print i
     if 'user' in session:
         leagues = getLeagues(session['user'])
         leagueID=i
+        emp=[]
         for x in leagues:
             if x == leagueID:
+                for y in leagues[x]:
+                    emp.append(y)
+                    print getLeagueAthletes(leagueID, y)
                 return render_template('viewLeague.html', leagues=leagues,leagueID=leagueID)
     else:
         return redirect(url_for("home"))
@@ -175,8 +180,12 @@ def players4444(leagueID):
             for x in lol:
                 g= addPlayer(LID, session['user'], x)
                 print g
+
+
+
         else:
             return redirect(url_for("home"))
+        return redirect(url_for("draft", leagueID=LID))
     else:
         return redirect(url_for("home"))
     return render_template("playerStats2.html")

@@ -54,7 +54,6 @@ def getLeagues(user):
         users = []
         for y in s:
             users.append(y[0])
-        print users
         if user in users:
             myleagues[x[0]] = users
     return myleagues
@@ -96,19 +95,15 @@ def addPlayer(league, user, PID):
             myids = getAthletes(x)
         else:
             otherids.extend(getAthletes(x))
-    print myids
     if PID in myids:
         return [False, "You already have this player"]
     if PID in otherids:
         return [False, "Someone in your league already has this player"]
     if len(myids) >= 11:
         return [False, "You own the maximum number of athletes"]
-    print myids
     newids = "'" + athletesToString(myids + [PID]) + "'"
-    print newids
     userq = "'" + user + "'"
     q = "UPDATE %s SET athletes = %s WHERE users=%s" % (league, newids, userq,)
-    print q
     c.execute(q)
     db.commit()
     return [True, "Player added to your roster"]
@@ -155,5 +150,4 @@ def getAllLeagues(user):
             if user not in users:
                 myleagues[x[0]] = users
     return myleagues
-
-
+#print getLeagueAthletes('swagmonkey', 'shariarshariar')
