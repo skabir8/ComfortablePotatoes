@@ -2,7 +2,9 @@ import sqlite3
 import gameScraper
 
 def storeStats(day, stats):
-    db=sqlite3.connect("data/stats.db")
+    DIR=os.path.dirname(__file__)
+    DIR+='/'
+    db=sqlite3.connect(DIR+"../data/stats.db")
     c=db.cursor()
     for athleteStats in stats:
         name = athleteStats[0].replace("'","")

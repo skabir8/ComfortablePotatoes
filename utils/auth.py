@@ -1,11 +1,13 @@
-import hashlib, sqlite3, string
+import hashlib, sqlite3, string,os
 
 def addUser(username, password):
     if (special(username)):
         return "invalid character in username"
     if (len(password)<8):
         return "password too short"
-    db=sqlite3.connect('data/users.db')
+    DIR=os.path.dirname(__file__)
+    DIR+='/'
+    db=sqlite3.connect(DIR+'../data/users.db')
     c=db.cursor()
     myHashObj=hashlib.sha1()
     myHashObj.update(password)
@@ -29,9 +31,12 @@ def addUser(username, password):
     db.commit()
     db.close()
     return "registration succesful, enter user and pass to login"
-    
+
 def userLogin(user, password):
-    db=sqlite3.connect('data/users.db')
+    DIR=os.path.dirname(__file__)
+    DIR+='/'
+    print DIR
+    db=sqlite3.connect(DIR+'../data/users.db')
     c=db.cursor()
     myHashObj=hashlib.sha1()
     myHashObj.update(password)
@@ -51,4 +56,3 @@ def userLogin(user, password):
 
 def special(user):
     return any((ord(char)<48 or (ord(char)>57 and ord(char)<65) or (ord(char)>90 and ord(char)<97) or ord(char)>123) for char in user)
-

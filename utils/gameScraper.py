@@ -108,7 +108,9 @@ def getBoxScoreUrls():
     day=1
     i=1
     store=getAllGames()
-    file = open("testfile.txt","w")
+    DIR=os.path.dirname(__file__)
+    DIR+='/'
+    file = open(DIR+"../testfile.txt","w")
     for y in store.keys():
         r = requests.get(store['game_'+str(i)])
 

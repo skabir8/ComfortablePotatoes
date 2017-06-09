@@ -1,7 +1,9 @@
 import sqlite3
 
 def newLeague(name, user, multipliers):
-    db = sqlite3.connect("data/league.db")
+    DIR=os.path.dirname(__file__)
+    DIR+='/'
+    db = sqlite3.connect(DIR+"../data/league.db")
     c = db.cursor()
     q = " SELECT name from sqlite_master WHERE type=\'table\'"
     c.execute(q)
@@ -17,7 +19,9 @@ def newLeague(name, user, multipliers):
     return [True, "League Successfully Created"]
 
 def joinLeague(name, user):
-    db = sqlite3.connect("data/league.db")
+    DIR=os.path.dirname(__file__)
+    DIR+='/'
+    db = sqlite3.connect(DIR+"../data/league.db")
     c = db.cursor()
     q = " SELECT name from sqlite_master WHERE type=\'table\'"
     c.execute(q)
@@ -38,7 +42,9 @@ def joinLeague(name, user):
     return [True, "User Successfully Added to League"]
 
 def getLeagues(user):
-    db = sqlite3.connect("data/league.db")
+    DIR=os.path.dirname(__file__)
+    DIR+='/'
+    db = sqlite3.connect(DIR+"../data/league.db")
     c = db.cursor()
     #q = "DROP TABLE jimmy"
     #c.execute(q)
@@ -61,7 +67,9 @@ def getLeagues(user):
 
 
 def getAllLeagues(user):
-    db = sqlite3.connect("data/league.db")
+    DIR=os.path.dirname(__file__)
+    DIR+='/'
+    db = sqlite3.connect(DIR+"../data/league.db")
     c = db.cursor()
     #q = "DROP TABLE jimmy"
     #c.execute(q)
@@ -83,7 +91,9 @@ def getAllLeagues(user):
     return myleagues
 
 def addPlayer(league, user, PID):
-    db = sqlite3.connect("data/league.db")
+    DIR=os.path.dirname(__file__)
+    DIR+='/'
+    db = sqlite3.connect(DIR+"../data/league.db")
     c = db.cursor()
     c.execute("Select * from " + league)
     r = c.fetchall()
@@ -117,7 +127,9 @@ def getAthletes(sqlr):
     return sqlr[1].split(',')
 
 def maxplayers(league, user):
-    db = sqlite3.connect("data/league.db")
+    DIR=os.path.dirname(__file__)
+    DIR+='/'
+    db = sqlite3.connect(DIR+"../data/league.db")
     c = db.cursor()
     userq = "'" + user + "'"
     q = "Select * from " + league + " WHERE users=" + userq
@@ -128,7 +140,9 @@ def maxplayers(league, user):
 #print maxplayers('swagmonkey','jordan')
 
 def getLeagueAthletes(league, user):
-    db = sqlite3.connect("data/league.db")
+    DIR=os.path.dirname(__file__)
+    DIR+='/'
+    db = sqlite3.connect(DIR+"../data/league.db")
     c = db.cursor()
     userq = "'" + user + "'"
     q = "Select * from " + league + " WHERE users=" + userq
@@ -145,7 +159,9 @@ def athletesToString(lis):
         return ','.join(lis)
 
 def getAllLeagues(user):
-    db = sqlite3.connect("data/league.db")
+    DIR=os.path.dirname(__file__)
+    DIR+='/'
+    db = sqlite3.connect(DIR+"../data/league.db")
     c = db.cursor()
     #q = "DROP TABLE jimmy"
     #c.execute(q)

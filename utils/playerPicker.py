@@ -1,7 +1,9 @@
 import sqlite3
 
 def addAthlete(leagueNum, user, athlete):
-    db=sqlite3.connect("data/league.db")
+    DIR=os.path.dirname(__file__)
+    DIR+='/'
+    db=sqlite3.connect(DIR+"../data/league.db")
     c=db.cursor()
     q="select athletes from League"+str(leagueNum)
     c.execute(q)
