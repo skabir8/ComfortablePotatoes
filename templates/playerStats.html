@@ -1,57 +1,69 @@
-<!DOCTYPE html>
-<html>
-  <head>
-     <link rel="stylesheet" type="text/css" href="../static/div.css">
-    <title>
-      Stats
-    </title>
-  </head>
-  <body>
-    <div id="info" class="left">
+{% extends "basic.html" %}
 
-{{name}}
-      <table border="1" id="statsTable">
-	<tr>
-	  <th>Game</th>
-	  <th>Point</th>
-	  <th>MP</th>
-	  <th>AST</th>
-	  <th>BLK</th>
-	  <th>STLS</th>
-    <th>FGA</th>
-    <th>FGM</th>
-    <th>FG%</th>
-    <th>PF</th>
-    <th>TOV</th>
+{% block content %}
 
-	</tr>
-
-	<tr>
-    {% for x in days %}
-    <td> {{x}}</td>
-    <td> {{data[x]['PTS']}} </td>
-    <td> {{data[x]['MP']}} </td>
-    <td> {{data[x]['AST']}} </td>
-    <td> {{data[x]['BLK']}} </td>
-    <td> {{data[x]['STL']}} </td>
-        <td> {{data[x]['FGA']}} </td>
-    <td> {{data[x]['FG']}} </td>
-
-    <td> {{data[x]['FGPercent']}} </td>
-    <td> {{data[x]['PF']}} </td>
-    <td> {{data[x]['TOV']}} </td>
-
-	</tr>
-
-  {% endfor %}
-      </table>
-
-
-
-
+<header>
+  <div class="header-content">
+    <div class="header-content-inner">
+      <h1 id="homeHeading"><font color="#ff751a">{{name}}</font></h1>
+      <br><br><br>
     </div>
+    <center>
+          <div class="container" id="Player" style="background-color:#F05F40">
+
+
+
+            <table border="1" id="statsTable">
+      	<tr>
+      	  <th>Game</th>
+      	  <th>Point</th>
+      	  <th>MP</th>
+      	  <th>AST</th>
+      	  <th>BLK</th>
+      	  <th>STLS</th>
+          <th>FGA</th>
+          <th>FGM</th>
+          <th>FG%</th>
+          <th>PF</th>
+          <th>TOV</th>
+
+      	</tr>
+
+      	<tr>
+          {% for x in days %}
+          <td> {{x}}</td>
+          <td> {{data[x]['PTS']}} </td>
+          <td> {{data[x]['MP']}} </td>
+          <td> {{data[x]['AST']}} </td>
+          <td> {{data[x]['BLK']}} </td>
+          <td> {{data[x]['STL']}} </td>
+              <td> {{data[x]['FGA']}} </td>
+          <td> {{data[x]['FG']}} </td>
+
+          <td> {{data[x]['FGPercent']}} </td>
+          <td> {{data[x]['PF']}} </td>
+          <td> {{data[x]['TOV']}} </td>
+
+      	</tr>
+
+        {% endfor %}
+            </table>
+
+
+
+
+          </div>
+
+    </center>
+  </div>
+</header>
+
+<body>
+
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="../static/playerInfo.js"></script>
+    <script src="/static/playerInfo.js"></script>
   </body>
 </html>
+{% endblock %}

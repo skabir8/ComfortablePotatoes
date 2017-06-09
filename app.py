@@ -1,13 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 
 import hashlib, os
-from utils.makeLeague import newLeague, joinLeague, getLeagues,getAllLeagues,addPlayer,getLeagueAthletes
+from utils.makeLeague import newLeague, maxplayers, joinLeague, getLeagues,getAllLeagues,addPlayer,getLeagueAthletes
 from utils.playerPicker import addAthlete
 from utils.auth import addUser, userLogin
 from utils.getData import packageAllPlayers
 from utils.playerIDGet import getPlayerIDs
 from utils.dayStats import getStats
-from utils.gameScraper import getRando
+from utils.gameScraper import getRando, getPlayID
 import random
 
 app = Flask(__name__)
@@ -61,7 +61,11 @@ def leagueform():
         user = session['user']
         leagues = getLeagues(user)
         allLeagues=getAllLeagues(user)
-        return render_template("leagueform.html", leagues=leagues, allLeagues=allLeagues)
+        empl=[]
+        for g in leagues:
+            if (maxplayers(g,session['user'])):
+                empl.append(g)
+        return render_template("leagueform.html", leagues=leagues, allLeagues=allLeagues, tenList=empl)
     if 'user' not in session:
         return redirect("/")
     if 'lerror' in session:
@@ -140,17 +144,53 @@ def joinNewLeague(leagueID):
 @app.route('/viewleague/<leagueID>/')
 def draft(leagueID):
     i=leagueID
-    print i
     if 'user' in session:
         leagues = getLeagues(session['user'])
         leagueID=i
         emp=[]
+        retDict={}
+        y=''
         for x in leagues:
             if x == leagueID:
                 for y in leagues[x]:
-                    emp.append(y)
-                    print getLeagueAthletes(leagueID, y)
-                return render_template('viewLeague.html', leagues=leagues,leagueID=leagueID)
+                    emp=[]
+                    holdy={}
+                    newName=''
+                    allHold= getLeagueAthletes(leagueID, y)
+                    if (allHold != []):
+                        for k in allHold:
+                            holdy={}
+                            #print y, k,getPlayID(k),getStats(getPlayID(k))
+                            if (getStats(getPlayID(k)) != {} and getStats(getPlayID(k)) not in emp ):
+                                newName=k
+                                holdy[getPlayID(newName)]=getStats(getPlayID(k))
+                                emp.append(holdy)
+
+                        retDict[y]=emp
+        finalDict={}
+        finalL=[]
+        for x in retDict:
+
+            finalL=[]
+            for otherPlayers in retDict[x]:
+
+                for l in otherPlayers:
+
+                    #print x,otherPlayers[l]
+                    empt={'PTS':0,'AST':0,'BLK':0,'STL':0,'FGA':0,'FG':0,'PF':0,'TOV':0}
+                    for z in otherPlayers[l]:
+
+                        empt['PTS']=int(empt['PTS'])+int(otherPlayers[l][z]['PTS'])
+                        empt['AST']=int(empt['AST'])+int(otherPlayers[l][z]['AST'])
+                        empt['BLK']=int(empt['BLK'])+int(otherPlayers[l][z]['BLK'])
+                        empt['STL']=int(empt['STL'])+int(otherPlayers[l][z]['STL'])
+                        empt['FGA']=int(empt['FGA'])+int(otherPlayers[l][z]['FGA'])
+                        empt['FG']=int(empt['FG'])+int(otherPlayers[l][z]['FG'])
+                        empt['PF']=int(empt['PF'])+int(otherPlayers[l][z]['PF'])
+                        empt['TOV']=int(empt['TOV'])+int(otherPlayers[l][z]['TOV'])
+                    finalL.append({otherPlayers.keys()[0]:empt})
+            finalDict[x]=finalL
+        return render_template('viewLeague.html', leagues=leagues,leagueID=leagueID, data=finalDict)
     else:
         return redirect(url_for("home"))
     return redirect(url_for("home"))
@@ -179,10 +219,6 @@ def players4444(leagueID):
             lol=getRando(emp)
             for x in lol:
                 g= addPlayer(LID, session['user'], x)
-                print LID,session['user'],x
-                print g
-
-
 
         else:
             return redirect(url_for("home"))

@@ -8,30 +8,81 @@
       <h1 id="homeHeading"><font color="#ff751a">LEAGUES!</font></h1>
       <br><br><br>
     </div>
-    <a href="#myLeagues" class="btn btn-primary btn-xl page-scroll">My Leagues</a>
-    <a href="#makeLeague" class="btn btn-primary btn-xl page-scroll">Make Your Own League</a>
-    <a href="#joinLeague" class="btn btn-primary btn-xl page-scroll">Join a League</a>
+    <a href="/home" class="btn btn-primary btn-xl page-scroll">My Leagues</a>
+    <a href="/home" class="btn btn-primary btn-xl page-scroll">Make Your Own League</a>
+    <a href="/home" class="btn btn-primary btn-xl page-scroll">Join a League</a>
   </div>
 </header>
 <body>
-    <div class="container" id="myLeagues" style="background-color:#F05F40;width:100%">
 
-      <center> <h1> </h1> </center>
-      {% if leagues.items()[0] %}
-        {% for key, value in leagues.items() %}
-          {% if key == leagueID %}
-            <h2> League {{key}} </h2>
-              Members: {% for x in value %} {{x}} {% endfor %}
-                {% endif %}
-        {% endfor %}
+  <div class="container" id="myLeagues1" style="background-color:#F05F40;width:100%">
 
-      {% else %}
-      <center> No Data</center>
-      {% endif %}
+    <div class="modal-body row">
 
-      <br>
-      <br>
+
+
+
+
+
+
+    {% if data.items()[0] %}
+    {% for key, value in data.items() %}
+      <div class="col-md-4">
+    <center><button type="button" class="btn btn-info" data-toggle="collapse" data-target="#{{key}}">{{key}}</button>
+<div id="{{key}}" class="panel-collapse collapse">
+  <ul class="list-group">
+        <li class="list-group-item">
+    <table border="1" id="statsTable">
+<tr>
+  <th>{{key}}</th>
+  <th>Point</th>
+  <th>AST</th>
+  <th>BLK</th>
+  <th>STLS</th>
+  <th>FGA</th>
+  <th>FGM</th>
+  <th>PF</th>
+  <th>TOV</th>
+  <th>Total</th>
+
+</tr>
+
+<tr>
+    {% for y in value%}
+
+      {% for g in y %}
+
+
+      <td> <a href="/players/{{g}}" class="btn btn-info" role="button">{{g}}</a></td>
+      <td> {{y[g]['PTS']}} </td>
+      <td> {{y[g]['AST']}} </td>
+      <td> {{y[g]['BLK']}} </td>
+      <td> {{y[g]['STL']}} </td>
+          <td> {{y[g]['FGA']}} </td>
+      <td> {{y[g]['FG']}} </td>
+
+      <td> {{y[g]['PF']}} </td>
+      <td> {{y[g]['TOV']}} </td>
+      {% set count = 0 %}
+      {% set count = y[g]['AST']+y[g]['PTS']+y[g]['BLK']+y[g]['STL']+y[g]['PF']-(y[g]['TOV']*2) %}
+      <td> {{count}} </td>
+
+  	</tr>
+
+    {% endfor %}
+    {% endfor %}
+      </table>
+    </li>
   </div>
+  </div>
+
+{% endfor %}
+</div>
+    {% endif %}
+
+</div>
+
+
 
 
 

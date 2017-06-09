@@ -27,8 +27,13 @@
               <h2> League {{key}} </h2>
               Members: {% for x in value %} {{x}} {% endfor %}
 
-              <a href="/draft/{{key}}" class="btn btn-info" role="button">Draft</a>
+              {% if key in tenList %}
               <a href="/viewleague/{{key}}" class="btn btn-info" role="button">View League</a>
+              {% else %}
+              <a href="/draft/{{key}}" class="btn btn-info" role="button">Please Draft Players</a>
+              {% endif %}
+
+
               {% endfor %}
               {% else %}
               <center> No leagues to show. Create or join a league below! </center>
