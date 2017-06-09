@@ -179,6 +179,7 @@ def players4444(leagueID):
             lol=getRando(emp)
             for x in lol:
                 g= addPlayer(LID, session['user'], x)
+                print LID,session['user'],x
                 print g
 
 
