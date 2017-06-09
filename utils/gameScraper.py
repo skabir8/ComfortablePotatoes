@@ -217,9 +217,9 @@ def getDayData(x):
         if 'FG' in (x[1])[x[0]]:
 
             retList.append(x)
-
-
     return retList
+
+
 
 def getRando(listy):
     hold=listy

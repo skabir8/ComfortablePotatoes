@@ -6,8 +6,8 @@ from utils.playerPicker import addAthlete
 from utils.auth import addUser, userLogin
 from utils.getData import packageAllPlayers
 from utils.playerIDGet import getPlayerIDs
-from utils.dayStats import getStats
-from utils.gameScraper import getRando, getPlayID
+from utils.dayStats import getStats, storeStats
+from utils.gameScraper import getRando, getPlayID, getDayData
 import random
 
 app = Flask(__name__)
@@ -62,10 +62,14 @@ def leagueform():
         leagues = getLeagues(user)
         allLeagues=getAllLeagues(user)
         empl=[]
+        msg=''
+        if 'msg' in session:
+            msg=session['msg']
+            session.pop('msg')
         for g in leagues:
             if (maxplayers(g,session['user'])):
                 empl.append(g)
-        return render_template("leagueform.html", leagues=leagues, allLeagues=allLeagues, tenList=empl)
+        return render_template("leagueform.html", leagues=leagues, allLeagues=allLeagues, tenList=empl,msg=msg)
     if 'user' not in session:
         return redirect("/")
     if 'lerror' in session:
@@ -241,6 +245,18 @@ def player(name):
         return render_template("playerStats.html", name=pName, days=retList,data=data)
     return redirect(url_for("home"))
 
+@app.route('/update', methods=["POST"])
+def update():
+
+    if ('user' in session and 'day' in request.form):
+        try:
+            day=int(request.form['day'])
+            storeStats(day, getDayData(day))
+            session['msg']="Day has been updated, Please view one of your leagues to see."
+            return redirect(url_for("leagueform"))
+        except ValueError:
+            return redirect(url_for("home"))
+    return redirect(url_for("home"))
 
 if __name__ == "__main__":
     app.debug = True

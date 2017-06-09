@@ -5,12 +5,18 @@
 <header>
   <div class="header-content">
     <div class="header-content-inner">
-      <h1 id="homeHeading"><font color="#ff751a">LEAGUES!</font></h1>
+      {% if msg != None %}
+<h1 id="homeHeading"><font color="#ff751a">{{msg}}</font></h1>
+  {% else %}
+  <h1 id="homeHeading"><font color="#ff751a">LEAGUES!</font></h1>
+      {% endif %}
+
       <br><br><br>
     </div>
     <a href="#myLeagues" class="btn btn-primary btn-xl page-scroll">My Leagues</a>
     <a href="#makeLeague" class="btn btn-primary btn-xl page-scroll">Make Your Own League</a>
     <a href="#joinLeague" class="btn btn-primary btn-xl page-scroll">Join a League</a>
+
   </div>
 </header>
 <body>
@@ -50,6 +56,7 @@
 
 
   <div class="container" id="makeLeague">
+
     <center> <h1> Make A League! </h1> </center>
     <form class="form-inline" action="/authleague" method="POST">
       <center>
@@ -108,8 +115,8 @@
 	{% endif %}
       </center>
   </form>
+</div>
 
-  </div>
 
     <div class="container" id="AvailableLeagues" style="background-color:#F05F40;width:100%">
 
@@ -135,8 +142,7 @@
               </ul>
             </div>
           </div>
-        </div>
-      </div>
+
 
 
 
@@ -169,6 +175,18 @@
   </form>
 
   </div>
+<center>
+  <div class="container" id="update">
+    <form class="form-inline" action="/update" method="POST">
+      <p1>Please put in which day you want to update<p1>
+      <input class="form-control" id="name" placeholder="0" name="day">
+
+      <button style="background-color:#F05F40;color:#FFFFFF" class="btn btn-primary btn-xl page-scroll" name="submit" value="submit" type="submit">Update</button>
+
+    </form>
+
+  </div>
+</center>
 
 
 </body>

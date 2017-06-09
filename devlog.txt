@@ -49,3 +49,6 @@ Start moving from fake values to database info
 
 ShariarK-- -- 2017-06-05 06:07 PM
 made fxn to manually scrape all the data from a single NBA day
+
+ShariarK/JordanY-- -- 2017-06-09 06:07 PM
+Finished drafting players, adding to league, updating player stats, updating day stats, updating days, point calculations, fixed errors
