@@ -110,7 +110,7 @@ def getBoxScoreUrls():
     store=getAllGames()
     DIR=os.path.dirname(__file__)
     DIR+='/'
-    file = open(DIR+"../testfile.txt","w")
+    file = open(DIR+"testfile.txt","w")
     for y in store.keys():
         r = requests.get(store['game_'+str(i)])
 
@@ -182,7 +182,9 @@ def getBoxScoreStats(boxUrl):
     return endL[2:]
 
 def getPidList():
-    f =  open('players.txt', 'r')
+    DIR=os.path.dirname(__file__)
+    DIR+='/'
+    f =  open(DIR+'players.txt', 'r')
     ret={}
     for x in f.readlines():
         ret[x.split(',')[1]]=x.split(',')[0]
@@ -195,7 +197,9 @@ def getPid(name):
 
 
 def getDayBox(x):
-    f = open('testfile.txt', 'r')
+    DIR=os.path.dirname(__file__)
+    DIR+='/'
+    f = open(DIR+'testfile.txt', 'r')
     return ast.literal_eval(f.read())['day_'+str(x)]
 
 #print getPid('Al-Farouq Aminu')

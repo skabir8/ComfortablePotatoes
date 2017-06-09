@@ -4,7 +4,9 @@ from statsScraper import getPrevSeasonHeaders
 import os
 
 def makeDB():
-    db=sqlite3.connect('../data/users.db')
+    DIR=os.path.dirname(__file__)
+    DIR+='/'
+    db=sqlite3.connect(DIR+'../../data/users.db')
     c=db.cursor()
     q="CREATE TABLE users( \'userID\' integer, \'username\' text, \'password\' text, \'points\' integer, \'players\' text, \'group\' integer )"
     c.execute(q)

@@ -47,7 +47,9 @@ def getPlayerPic(PID):
     return imageLink
 
 def getPlayerName(PID):
-    f = open("players.txt", "r")
+    DIR=os.path.dirname(__file__)
+    DIR+='/'
+    f = open(DIR+"players.txt", "r")
     for line in f:
         player = line.split(",")
         if player[0] == str(PID):

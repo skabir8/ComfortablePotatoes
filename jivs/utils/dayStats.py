@@ -15,7 +15,9 @@ def storeStats(day, stats):
     db.close()
 
 def getStats(name):
-    db=sqlite3.connect("data/stats.db")
+    DIR=os.path.dirname(__file__)
+    DIR+='/'
+    db=sqlite3.connect(DIR+"../data/stats.db")
     c=db.cursor()
     q="SELECT Day FROM days WHERE Athlete=\'"+name+"\'"
     c.execute(q)
