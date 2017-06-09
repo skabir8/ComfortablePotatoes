@@ -1,7 +1,7 @@
 import sqlite3
 from statsScraper import getPrevSeasonHeaders
 
-
+import os
 
 def makeDB():
     db=sqlite3.connect('../data/users.db')

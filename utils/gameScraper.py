@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 from lxml import etree
 import ast
 import random
-
+import os
 
 headersList=['MP','FG','FGA','FGPercent','3P','3PA','3PPercent','FT','FTA','FTPercent','ORB','DRB','TRB','AST','STL','BLK','TOV','PF','PTS','+/-']
 

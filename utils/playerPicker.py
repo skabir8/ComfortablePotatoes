@@ -1,4 +1,5 @@
 import sqlite3
+import os
 
 def addAthlete(leagueNum, user, athlete):
     DIR=os.path.dirname(__file__)

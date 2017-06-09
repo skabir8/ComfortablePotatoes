@@ -1,5 +1,6 @@
 import sqlite3
 import gameScraper
+import os
 
 def storeStats(day, stats):
     DIR=os.path.dirname(__file__)

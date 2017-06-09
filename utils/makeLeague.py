@@ -1,4 +1,5 @@
 import sqlite3
+import os
 
 def newLeague(name, user, multipliers):
     DIR=os.path.dirname(__file__)

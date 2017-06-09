@@ -1,6 +1,7 @@
 import sqlite3
 from statsScraper import getPrevSeasonHeaders, getPlayerPic, getPlayerName, getPrevSeasonAvg
 from playerIDGet import getPlayerIDs
+import os
 
 DIR=os.path.dirname(__file__)
 DIR+='/'
