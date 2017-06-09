@@ -1,15 +1,17 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 
 import hashlib, os
-from utils.makeLeague import newLeague, joinLeague, getLeagues,getAllLeagues
+from utils.makeLeague import newLeague, joinLeague, getLeagues,getAllLeagues,addPlayer
 from utils.playerPicker import addAthlete
 from utils.auth import addUser, userLogin
 from utils.getData import packageAllPlayers
 from utils.playerIDGet import getPlayerIDs
 from utils.dayStats import getStats
+from utils.gameScraper import getRando
+import random
+
 app = Flask(__name__)
 app.secret_key=os.urandom(32)
-
 
 @app.route("/")
 def logCheck():
@@ -78,6 +80,9 @@ def authleague():
     if 'user' in session:
         name = request.form['name'].replace(" ","")
         user = request.form['user']
+        if (name == ""):
+            return redirect("/home")
+
         multiplier = request.form['points']
         multiplier += request.form['assists']
         multiplier += request.form['blocks']
@@ -112,12 +117,7 @@ def logout():
     session.pop('user')
     return redirect(url_for('home'))
 
-@app.route('/draft/<leagueID>')
-def stats1(leagueID):
-    LID=leagueID
-    stats = packageAllPlayers()
 
-    return render_template("playerStats2.html", list=stats, LID=LID)
 
 
 @app.route('/join/<leagueID>', methods=["POST", "GET"])
@@ -126,7 +126,6 @@ def joinNewLeague(leagueID):
         LID=leagueID
         username=session['user']
         leagues=getAllLeagues(username)
-        print leagues
         if (session['user'] not in leagues[LID]):
             r = joinLeague(LID, username)
             if r[0]:
@@ -151,18 +150,43 @@ def draft(leagueID):
         return redirect(url_for("home"))
     return redirect(url_for("home"))
 
+@app.route('/draft/<leagueID>')
+def stats1(leagueID):
+
+    LID=leagueID
+    stats = packageAllPlayers()
+    return render_template("playerStats2.html", list=stats, LID=LID)
+
+
 @app.route('/add/<leagueID>', methods=["POST"])
 def players4444(leagueID):
-    print request.form
-    stats = packageAllPlayers()
-    return render_template("playerStats2.html", list=stats)
+    LID=leagueID
+    if 'user' in session:
+        leagues = getLeagues(session['user'])
+        if LID in leagues:
+            LID=leagueID
+            emp=[]
+            for keys in request.form:
+                numHolder= random.randint(0,2)
+                if numHolder==0:
+                    emp.append(request.form[keys])
+            lol=[]
+            lol=getRando(emp)
+            for x in lol:
+                g= addPlayer(LID, session['user'], x)
+                print g
+        else:
+            return redirect(url_for("home"))
+    else:
+        return redirect(url_for("home"))
+    return render_template("playerStats2.html")
 
 
 
 @app.route('/players/<name>')
 def player(name):
     pName = name
-    if 'user' not in session:
+    if 'user' in session:
         data=getStats(name)
         retList=[]
         for x in data:

@@ -3,6 +3,8 @@ import urllib2
 from bs4 import BeautifulSoup
 from lxml import etree
 import ast
+import random
+
 
 headersList=['MP','FG','FGA','FGPercent','3P','3PA','3PPercent','FT','FTA','FTPercent','ORB','DRB','TRB','AST','STL','BLK','TOV','PF','PTS','+/-']
 
@@ -218,6 +220,25 @@ def getDayData(x):
 
 
     return retList
+
+def getRando(listy):
+    hold=listy
+    num= len(listy)
+    if (num > 10):
+        return listy[:10]
+    elif (num == 10):
+        return listy
+    else:
+        while (num < 10):
+            randy= random.choice(playerDict.keys())
+            if (playerDict[randy] not in hold):
+                listy.append(playerDict[randy])
+                num=len(hold)
+        return hold
+    return hold
+
+
+
 
 
 #print getDayData(12)
