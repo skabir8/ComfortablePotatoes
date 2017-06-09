@@ -1,0 +1,11 @@
+flask
+bs4
+ast
+requests
+os
+sqlite3
+hashlib
+string
+json
+lxml
+urllib2
